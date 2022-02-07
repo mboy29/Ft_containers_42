@@ -1,6 +1,7 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 # include <memory> //  Allocator
+# include <stdexcept> //  length_error
 
 //  ---------------------------VECTOR CONTAINER---------------------------
 // |  -> Class Template								                      |
@@ -160,21 +161,79 @@ namespace Ft
 			
 			//  ----------------------CAPACITY---------------------------
 
-			size_type size(void) const { return (this->_size); } //  Size()
+			//  Size :
+			size_type size(void) const { return (this->_size); } 
 			
-			size_type max_size() const { return (this->_alloc.max_size()); } //  Max_size()
+			//  Max_size :
+			size_type max_size() const { return (this->_alloc.max_size()); }
+			
+			//  Resize :
+			void resize (size_type n, value_type val = value_type()) {
+				pointer			new_ptr;
+				allocator_type	new_alloc;
+				size_type		size = this->size();
 
-			//void resize (size_type n, value_type val = value_type());
+				if (n >= 0) {
+					if (n > this->capacity()) {
+						if (!(new_ptr = new_alloc.allocate(n)))
+							throw std::bad_alloc();
+						for (size_type idx = 0; idx < size; idx += 1)
+							new_alloc.construct(new_ptr + idx, this->_ptr[idx]);
+						this->clear();
+						this->_alloc.deallocate(this->_ptr, this->capacity());
+						this->_size = n;
+						this->_capacity = n;
+						this->_ptr = new_ptr;
+						this->_start = this->_ptr;
+						this->_end = this->_ptr + (this->size() - 1);
+					}
+					if (n > size) {
+						for (size_type idx = size; idx < n; idx += 1)
+							this->_alloc.construct(this->_ptr + idx, val);
+						this->_size = n;
+					}
+					else if (n < size) {
+						for (size_type idx = size - n; idx < size; idx += 1)
+							this->_alloc.destroy(this->_start + idx);
+						this->_size -= (size - n);
+						this->_end = this->_ptr + (this->size() - 1);
+						
+					}
+				}
+			}
 
-			size_type capacity() const { return (this->_capacity); } //  Capacity();
+			//  Capacity :
+			size_type capacity() const { return (this->_capacity); } 
 
-			bool empty() const { //  Empty()
+			//  Empty() :
+			bool empty() const {
 				if (this->size() == 0)
 					return (true);
 				return (false);
 			}
 
-			// void reserve (size_type n);
+			//  Reserve() :
+			void reserve (size_type n) {
+				pointer			new_ptr;
+				allocator_type	new_alloc;
+				size_type		size = this->size();
+	
+				if (n > this->capacity()) {
+					if (!(new_ptr = new_alloc.allocate(n)))
+						throw std::bad_alloc();
+					for (size_type idx = 0; idx < size; idx += 1)
+						new_alloc.construct(new_ptr + idx, this->_ptr[idx]);
+					this->clear();
+					this->_alloc.deallocate(this->_ptr, this->capacity());
+					this->_size = size;
+					this->_capacity = n;
+					this->_ptr = new_ptr;
+					this->_start = this->_ptr;
+					this->_end = this->_ptr + (this->size() - 1);
+				}
+				else if (n > this->max_size())
+					throw std::length_error("vector::reserve");
+			}
 			// void shrink_to_fit();
 
 
