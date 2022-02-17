@@ -5,9 +5,9 @@
 # include <cstring> // memmove 
 
 //  ---------------------------VECTOR CONTAINER---------------------------
-// |  -> Class Template								                      |
-// |  Vectors are sequence containers representing arrays that can change |
-// |  in size.															  |
+//    -> Class Template
+//    Vectors are sequence containers representing arrays that can change
+//    in size.
 //  ----------------------------------------------------------------------
 
 namespace ft
@@ -471,10 +471,10 @@ namespace ft
 				}
 
 		};
-		
-	//  -------------NON-MEMBER FUNCTIONS OVERLOADS------------------
 
-	//  -------------------RATIONAL OPERATORS------------------------
+	//  ---------------NON-MEMBER FUNCTIONS OVERLOADS---------------------
+
+	//  ---------------------RATIONAL OPERATORS---------------------------
 
 	template <class T, class Alloc> //  Operator==
 		bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {

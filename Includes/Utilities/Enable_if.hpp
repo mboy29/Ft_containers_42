@@ -2,10 +2,9 @@
 # define ENABLE_IF_HPP
 
 //  -----------------------------ENABLE_IF-------------------------------
-// |  -> Class Template									                 |
-// |  The type T is enabled as member type enable_if::typeif Cond is     |
-// |  true.																 |
-// |  Otherwise, enable_if::type is not defined.       					 |
+//    -> Class Template
+//    The type T is enabled as member type enable_if::typeif Cond is
+//    true. Otherwise, enable_if::type is not defined.
 //  ---------------------------------------------------------------------
 
 namespace ft

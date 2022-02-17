@@ -3,19 +3,19 @@
 # include <cstddef> // ptrdiff_t -> Signed integer type of the result of subtracting two pointers
 
 //  ---------------------ITERATOR RE-IMPLATATION-------------------------
-// |  -> Header           								                 |
-// |  Object that, pointing to some element in a range of elements       |
-// |  (array or container), has the ability to iterate through the       |
-// |  elements of that range using a set of operators.                   |                            |
+//    -> Header
+//    Object that, pointing to some element in a range of elements
+//    (array or container), has the ability to iterate through the
+//    elements of that range using a set of operators.
 //  ---------------------------------------------------------------------
 
 namespace ft
 {
 	//  -----------------------ITERATOR BASS CLASS------------------------
-	// |  -> Bass Class           						                  |
-	// |  Can be used to derive iterator classes from it. Not an iterator |
-	// |  class and does not provide any of the functionality an iterator |
-	// |  is expected to have. 											  |
+	//    -> Bass Class
+	//    Can be used to derive iterator classes from it. Not an iterator
+	//    class and does not provide any of the functionality an iterator
+	//    is expected to have.
 	//  ------------------------------------------------------------------
 	
 	template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
@@ -32,9 +32,9 @@ namespace ft
 		};
 	
 	//  ----------------------ITERATOR CATEGORY TAG-----------------------
-	// |  -> Struct											              |
-	// |  Iterators are classified into five categories depending on the  |
-	// |  functionality they implement.    								  |
+	//    -> Struct
+	//    Iterators are classified into five categories depending on the
+	//    functionality they implement.
 	//  ------------------------------------------------------------------
 	
 	struct input_iterator_tag {};
@@ -44,8 +44,8 @@ namespace ft
 	struct random_access_iterator_tag {};
 
 	//  -------------------------ITERATOR TRAITS--------------------------
-	// |  -> Struct											              |
-	// |  Traits class defining properties of iterators.                  |
+	//    -> Struct
+	//    Traits class defining properties of iterators.
 	//  ------------------------------------------------------------------
 	
 	template <class Iterator>

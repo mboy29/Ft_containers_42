@@ -2,10 +2,10 @@
 # define  RANDOM_ACCESS_ITERATOR_HPP
 
 //  -----------------------RANDOM ACCESS ITERATORS------------------------
-// |  -> Class Template								                      |
-// |  This class reverses are iterators that can be used to access        |
-// |  elements at an arbitrary offset position relative to the element    |
-// |  they point to (they offer the same functionality as pointers.       |
+//    -> Class Template
+//    This class reverses are iterators that can be used to access
+//    elements at an arbitrary offset position relative to the element
+//    they point to (they offer the same functionality as pointers.
 //  ----------------------------------------------------------------------
 
 namespace ft

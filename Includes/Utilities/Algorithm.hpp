@@ -2,10 +2,10 @@
 # define ALGORITHM_HPP
 
 //  ---------------------------EQUAL ALGORITHM-------------------------------
-// |  -> Function template											         |
-// |  Compares the elements in the range [first1,last1) with those in        |
-// |  the range beginning at first2, and returns true if all of the          |
-// |  elements in both ranges match.       							     	 |
+//    -> Function template
+//    Compares the elements in the range [first1,last1) with those in
+//    the range beginning at first2, and returns true if all of the
+//    elements in both ranges match.
 //  -------------------------------------------------------------------------
 
 namespace ft
@@ -22,11 +22,11 @@ namespace ft
 		}
 
 	//  ----------------------------PRETICATE---------------------------------
-	// |  -> Function template											      |
-	// |  Pret is a binary function pointer or oject that accepts two         |
-	// |  elements and returns a  value convertible to bool.                  |
-	// |  The value returned indicates whether the elements are considered to |
-	// |  match in the context of this function.							  |
+	//    -> Function template
+	//    Pret is a binary function pointer or oject that accepts two
+	//    elements and returns a  value convertible to bool.
+	//    The value returned indicates whether the elements are considered to
+	//    match in the context of this function.
 	//  ----------------------------------------------------------------------
 
 	template <class InputIterator1, class InputIterator2, class BinaryPredicate>

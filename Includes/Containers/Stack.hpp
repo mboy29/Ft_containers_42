@@ -2,13 +2,13 @@
 # define STACK_HPP
 # include "Vector.hpp" // Default container
 
-//  ---------------------------STACK CONTAINER----------------------------
-// |  -> Class Template								                      |
-// |  Stacks are a type of container adaptor, specifically designed to    |
-// |  operate in a LIFO context (last-in first-out).                      |
-// |  Thus, elements are inserted and extracted only from one end of the  |
-// |  container.														  |
-//  ----------------------------------------------------------------------
+//  ---------------------------STACK CONTAINER---------------------------
+//    -> Class Template
+//    Stacks are a type of container adaptor, specifically designed to
+//    operate in a LIFO context (last-in first-out).
+//    Thus, elements are inserted and extracted only from one end of the
+//    container.
+//  ---------------------------------------------------------------------
 
 namespace ft
 {
@@ -53,10 +53,10 @@ namespace ft
 				void pop(void) { this->_container.pop_back(); }
 			
 			//  -------------RATIONAL OPERATORS FRIENDS------------------
-			// |  These rational operators member function are defined   |
-			// |  as "friends" in order for the actual rational          |
-			// |  operators (non-member functions) to access the private |
-			// |  member type _container.                    			 |
+			//    These rational operators member function are defined
+			//    as "friends" in order for the actual rational
+			//    operators (non-member functions) to access the private
+			//    member type _container.
 			//  ---------------------------------------------------------
 
 			public:
@@ -81,9 +81,9 @@ namespace ft
 
 		};
 	
-	//  -------------NON-MEMBER FUNCTIONS OVERLOADS------------------
+	//  ---------------NON-MEMBER FUNCTIONS OVERLOADS--------------------
 
-	//  -------------------RATIONAL OPERATORS------------------------
+	//  ---------------------RATIONAL OPERATORS--------------------------
 
 	template <class T, class Container> //  Operator==
 		bool operator== (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {

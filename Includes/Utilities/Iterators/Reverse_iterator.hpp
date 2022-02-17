@@ -3,9 +3,9 @@
 # include "Iterator.hpp"
 
 //  --------------------------REVERSE ITERATORS---------------------------
-// |  -> Class Template								                      |
-// |  This class reverses the direction in which a bidirectional or       |
-// |  random-access iterator iterates through a range.                    |
+//    -> Class Template
+//    This class reverses the direction in which a bidirectional or
+//    random-access iterator iterates through a range.
 //  ----------------------------------------------------------------------
 
 namespace ft

@@ -2,10 +2,10 @@
 # define PAIR_HPP
 
 //  -------------------------PAIR RE-IMPLATATION-------------------------
-// |  -> Class Template									                 |
-// |  A pair couples together a pair of values, which may be of          |
-// |  different types (T1 and T2). The individual values can be accessed |
-// |  through its public members first and second.                       |
+//    -> Class Template
+//    A pair couples together a pair of values, which may be of
+//    different types (T1 and T2). The individual values can be accessed
+//    through its public members first and second.
 //  ---------------------------------------------------------------------
 
 namespace ft 

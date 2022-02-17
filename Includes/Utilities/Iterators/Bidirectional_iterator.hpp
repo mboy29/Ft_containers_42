@@ -2,10 +2,10 @@
 # define BIDIRECTIONAL_ITERATOR_HPP
 
 //  -----------------------BIDIRECTIONAL ITERATORS------------------------
-// |  -> Class Template								                      |
-// |  These iterators are iterators that can be used to access the        |
-// |  sequence of elements in a range in both directions.                 |
-// |  They can towards the end and towards the beginning.				  |
+//    -> Class Template
+//    These iterators are iterators that can be used to access the
+//    sequence of elements in a range in both directions.
+//    They can towards the end and towards the beginning.
 //  ----------------------------------------------------------------------
 
 namespace ft

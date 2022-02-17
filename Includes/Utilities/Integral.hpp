@@ -2,17 +2,17 @@
 # define INTEGRAL_HPP
 
 //  -----------------------------IS INTEGRAL---------------------------------
-// |  -> Class template													     |
-// |  Trait class that identifies whether T is an integral type.             |
-// |  Inherits from integral_constant as being either true_type or           |
-// |  false_type                      									     |
+//    -> Class template
+//    Trait class that identifies whether T is an integral type.
+//    Inherits from integral_constant as being either true_type or
+//    false_type
 //  -------------------------------------------------------------------------
 
 namespace ft 
 {
 	//  ------------------------INTEGRAL CONSTANT----------------------------
-	// |  -> Class template													 |
-	// |  Provides compile-time constants as types                           |
+	//    -> Class template
+	//    Provides compile-time constants as types
 	//  ---------------------------------------------------------------------
 
 	template <class T, bool val>

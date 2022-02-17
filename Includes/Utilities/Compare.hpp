@@ -2,9 +2,9 @@
 # define COMPARE_HPP
 
 //  -----------------------COMPARE RE-IMPLATATION------------------------
-// |  -> Function Template								                 |
-// |  Returns true if the range [first1,last1) compares                  |
-// |  lexicographically less than the range [first2, last2).             |                                     |
+//    -> Function Template
+//    Returns true if the range [first1,last1) compares
+//    lexicographically less than the range [first2, last2).
 //  ---------------------------------------------------------------------
 
 namespace ft
