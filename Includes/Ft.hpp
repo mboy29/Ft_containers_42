@@ -18,6 +18,7 @@
 # include "./Utilities/Compare.hpp"
 # include "./Utilities/Integral.hpp"
 # include "./Utilities/Iterators/Iterator.hpp"
+# include "./Utilities/Iterators/Bidirectional_iterator.hpp"
 # include "./Utilities/Iterators/Random_access_iterator.hpp"
 # include "./Utilities/Iterators/Reverse_iterator.hpp"
 
@@ -28,5 +29,6 @@
 //  ---------------------------------------------------------------------
 
 # include "./Containers/Vector.hpp"
+# include "./Containers/Stack.hpp"
 
 #endif

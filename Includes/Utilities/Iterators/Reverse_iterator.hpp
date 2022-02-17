@@ -1,5 +1,6 @@
 #ifndef REVERSE_ITERATOR_HPP
 # define REVERSE_ITERATOR_HPP
+# include "Iterator.hpp"
 
 //  --------------------------REVERSE ITERATORS---------------------------
 // |  -> Class Template								                      |
@@ -7,7 +8,7 @@
 // |  random-access iterator iterates through a range.                    |
 //  ----------------------------------------------------------------------
 
-namespace Ft
+namespace ft
 {
 	template <class Iterator>
 		class reverse_iterator {
@@ -16,11 +17,11 @@ namespace Ft
 		
 			public:
 				typedef Iterator												iterator_type;
-				typedef typename Ft::iterator_traits<Iterator>::value_type							value_type;
-				typedef typename Ft::iterator_traits<Iterator>::difference_type		difference_type;
-				typedef typename Ft::iterator_traits<Iterator>::pointer				pointer;
-				typedef typename Ft::iterator_traits<Iterator>::reference			reference;
-				typedef typename Ft::iterator_traits<Iterator>::iterator_category	iterator_category;
+				typedef typename ft::iterator_traits<Iterator>::value_type							value_type;
+				typedef typename ft::iterator_traits<Iterator>::difference_type		difference_type;
+				typedef typename ft::iterator_traits<Iterator>::pointer				pointer;
+				typedef typename ft::iterator_traits<Iterator>::reference			reference;
+				typedef typename ft::iterator_traits<Iterator>::iterator_category	iterator_category;
 			protected:
 				pointer		_ptr;
 
@@ -30,7 +31,7 @@ namespace Ft
 				
 				//  ----------------------CONSTRUCTOR---------------------
 			
-				reverse_iterator(void) {}
+				reverse_iterator(void) { this->_ptr = NULL; };
 				explicit reverse_iterator (iterator_type it) : _ptr(&(*it) - 1) {}
 				template <class It>
 					reverse_iterator (const reverse_iterator<It>& rev_it) : _ptr(&(*rev_it.base()) - 1) {}
@@ -38,6 +39,13 @@ namespace Ft
 				//  -------------------------BASE-------------------------
 			
 				iterator_type 		base(void) const { return (iterator_type(this->_ptr + 1)); } 
+				
+				//  -------------------CONVERT TO CONST-------------------
+
+				operator reverse_iterator<const Iterator>(void) const {
+					reverse_iterator<const Iterator>	tmp(this->_ptr);
+					return (tmp);
+				}
 
 				//  -----------------DEREFERENCE OPERATOR-----------------
 

@@ -9,7 +9,7 @@
 // |  elements of that range using a set of operators.                   |                            |
 //  ---------------------------------------------------------------------
 
-namespace Ft
+namespace ft
 {
 	//  -----------------------ITERATOR BASS CLASS------------------------
 	// |  -> Bass Class           						                  |
@@ -26,6 +26,7 @@ namespace Ft
 				typedef Pointer		pointer;
 				typedef Reference	reference;
 				typedef Category	iterator_category;
+				
 			protected:
 				pointer				_ptr;
 		};
@@ -56,21 +57,21 @@ namespace Ft
 			typedef typename Iterator::iterator_category	iterator_category;
 		};
 
-	template<class T>
-		struct iterator_traits<T*> {
-			typedef T							value_type;
-			typedef ptrdiff_t					difference_type;
-			typedef T*							pointer;
-			typedef T&							reference;
-			typedef random_access_iterator_tag	iterator_category;		
+	template<class Iterator>
+		struct iterator_traits<Iterator*> {
+			typedef Iterator						value_type;
+			typedef ptrdiff_t						difference_type;
+			typedef Iterator*						pointer;
+			typedef Iterator&						reference;
+			typedef random_access_iterator_tag		iterator_category;		
 		};
 	
-	template<class T>
-		struct iterator_traits<const T*> {
-			typedef T							value_type;
-			typedef ptrdiff_t					difference_type;
-			typedef const T*					pointer;
-			typedef const T&					reference;
+	template<class Iterator>
+		struct iterator_traits<const Iterator*> {
+			typedef Iterator						value_type;
+			typedef ptrdiff_t						difference_type;
+			typedef const Iterator*					pointer;
+			typedef const Iterator&					reference;
 			typedef random_access_iterator_tag	iterator_category;		
 		};
 	
