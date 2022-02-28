@@ -77,17 +77,18 @@ namespace ft
 					this->_clear();
 				}
 			
-			//  ------------------------OPERATOR=------------------------
+			//  ---------------------ASSIGN OPERATOR---------------------
 			
 			public:
 
+				//  Operator= :
 				tree&		operator=(tree const &rhs) {
 					if (this != &rhs) {
 						this->_clear();
 						this->_comp = rhs._comp;
 						this->_alloc = rhs._alloc;
 						this->_node_alloc = rhs._alloc;
-						this->_size = rhs.getSize();
+						this->_size = rhs.size();
 						_copy(rhs.getRoot());
 						return (*this);
 					}
@@ -99,10 +100,6 @@ namespace ft
 				//  Get node (this) :
 				node_pointer	getNode(void) const { return (this->_node); }
 				
-				//  Get size :
-				size_type		getSize(void) const { return (this->_size); } //  This
-				size_type		getSize(node_pointer node) const { return (node->getSize()); } //  Other
-
 				//  Get & set root :
 				node_pointer	getRoot(void) const { return (this->_node->left); } //  This
 				node_pointer	getRoot(node_pointer node) const { return (node->getRoot()); } //  Other
@@ -179,12 +176,32 @@ namespace ft
 				const_iterator			end(void) const { return (iterator(this->_node)); }
 
 				//  Reverse begin :
-				reverse_iterator		begin(void) { return (reverse_iterator(this->end())); }
-				const_reverse_iterator	begin(void) const { return (reverse_iterator(this->end())); }
+				reverse_iterator		rbegin(void) { return (reverse_iterator(this->end())); }
+				const_reverse_iterator	rbegin(void) const { return (reverse_iterator(this->end())); }
 
-				
+				//  Reverse end :
+				reverse_iterator		rend(void) { return (reverse_iterator(this->begin())); }
+				const_reverse_iterator	rend(void) const { return (reverse_iterator(this->begin())); }
 
-			//  ------------------------OTHERS------------------------
+			//  ------------------------ITERATORS------------------------
+
+			public:
+
+				// Empty :
+				bool		empty(void) const {
+					if (this->size() == 0)
+						return (true);
+					return (false);
+				}
+
+				//  Size :
+				size_type	size(void) const { return (this->_size()); }
+
+				//  Maximum siwe :
+				size_type	max_size(void) const { return (this->_node_alloc.max_size()); }
+
+			
+			//  -------------------------OTHERS--------------------------
 
 			private:
 
