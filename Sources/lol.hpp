@@ -1,9 +1,4 @@
-#ifndef RBTREE_HPP
-# define RBTREE_HPP
 
-# include <iostream>
-# include "tree_iterator.hpp"
-# include "reverse_iterator.hpp"
 
 namespace ft
 {
@@ -109,7 +104,7 @@ namespace ft
 			{
 				if (node != NULL)
 				{
-					insertValue(node->value);
+					(node->value);
 					copyTree(node->left);
 					copyTree(node->right);
 				}
@@ -152,7 +147,7 @@ namespace ft
 
 			pair<iterator,bool> insert (const value_type& val)
 			{
-				return (insertValue(val));
+				return ((val));
 			}
 
 			iterator insert (iterator position, const value_type& val)

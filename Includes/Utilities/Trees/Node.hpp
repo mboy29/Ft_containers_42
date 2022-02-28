@@ -10,18 +10,17 @@
 //    edge from exactly one other node.
 //  ----------------------------------------------------------------------
 
-# define BLACK	0
-# define RED	1
-
 namespace ft
 {
+	enum color { RED, BLACK, UNDEFINED };
+
 	template<class Pair>
 		struct node {
 
 			//  -----------------------MEMBER TYPES-----------------------
 
 			typedef Pair	value_type;
-			typedef	int		color_type;
+			typedef	color	color_type;
 
 			value_type		value;
 			color_type		color;

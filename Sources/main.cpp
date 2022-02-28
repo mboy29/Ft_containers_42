@@ -235,11 +235,14 @@ void	testingStack(void) {
 	std::cout << "-> Stack aka vector top element after pop : " << test2.top() << std::endl;
 }
 
-void	testingMap(void) {
-	pair<int, int>	testPair(23, 12);
-	tree_iterator<node<pair<int, int> > >::node	test(testPair);
+#define T1 int
+#define T2 int
+typedef pair<const T1, T2> T3;
+# include <map>
 
-	tree_iterator<node<pair<int, int> > > it(&test);
+void	testingMap(void) {
+	pair<int, int>			testPair(23, 12);
+	(void)testPair;
 }
 
 int		main(void) {
@@ -261,17 +264,3 @@ int		main(void) {
 }
 
 //   ADDD OVERLOAD << ET >>
-
-RBTree(value_compare const &comp, allocate_type const &alloc, node_alloc_type const &node = node_alloc_type())
-				: _comp(comp), _alloc(alloc), _node_alloc(node), _meta_node(NULL), _size(0)
-			{
-				_meta_node = _node_alloc.allocate(1);
-				_node_alloc.construct(_meta_node, node_type());
-			}
-
-			RBTree(const RBTree &ref) : _comp(ref._comp), _alloc(ref._alloc), _node_alloc(ref._node_alloc), _meta_node(NULL), _size(0)
-			{
-				_meta_node = _node_alloc.allocate(1);
-				_node_alloc.construct(_meta_node, node_type());
-				copyTree(ref.getRoot());
-			}

@@ -1,6 +1,8 @@
 #ifndef	TREE_HPP
 # define TREE_HPP
 # include "../Iterators/Reverse_iterator.hpp" //  Reverse iterator
+# include "./Node.hpp" //  Tree node
+# include "./Iterator.hpp" //  Tree iterator
 
 //  ----------------------------BLACK RED TREE----------------------------
 //    -> Class Template
@@ -67,8 +69,158 @@ namespace ft
 					this->_node_alloc.construct(this->_node, node_type());
 				}
 
+			//  ---------------------CONSTRUCTOR-------------------------
 
+			public:
+
+				~tree(void) {
+					this->_clear();
+				}
+			
+			//  ------------------------OPERATOR=------------------------
+			
+			public:
+
+				tree&		operator=(tree const &rhs) {
+					if (this != &rhs) {
+						this->_clear();
+						this->_comp = rhs._comp;
+						this->_alloc = rhs._alloc;
+						this->_node_alloc = rhs._alloc;
+						this->_size = rhs.getSize();
+						_copy(rhs.getRoot());
+						return (*this);
+					}
+				}
+
+			//  -------------------------GET/SET-------------------------
+		
+			public:
+				//  Get node (this) :
+				node_pointer	getNode(void) const { return (this->_node); }
 				
+				//  Get size :
+				size_type		getSize(void) const { return (this->_size); } //  This
+				size_type		getSize(node_pointer node) const { return (node->getSize()); } //  Other
+
+				//  Get & set root :
+				node_pointer	getRoot(void) const { return (this->_node->left); } //  This
+				node_pointer	getRoot(node_pointer node) const { return (node->getRoot()); } //  Other
+				
+				void			setRoot(node_pointer node) { //  This 
+					this->_node->left = node;
+					this->_node->right = node;
+					if (node != NULL)
+						node->parent = this->_node;
+				}
+
+				void			setRoot(node_pointer root, node_pointer node) { root->setRoot(node); } //  Other
+
+				//  Get & set color :
+				color			getColor(void) const { return (this->_node->color); } //  This		
+				color			getColor(node_pointer node) const { return (node->getColor()); } //  Other
+				void			setColor(color c) { if (this->_node != NULL) this->_node->color = c; } //  This
+				void			setColor(node_pointer node, color c) { if (node != NULL) node->color = c; } //  Other
+				
+				//  Get parent :
+				node_pointer	getParent(void) const { //  This
+					if (!this->_node || this->_node->parent == this->_node)
+						return (NULL);
+					return (this->_node->parent);
+				}
+
+				node_pointer	getParent(node_pointer node) const { return (node->getParent()); } //  Other
+
+				//  Get grandparent :
+				node_pointer	getGrandParent(void) const { //  This
+					node_pointer	tmp = this->getParent();
+
+					if (tmp)
+						return (tmp->getParent());
+					return (NULL);
+				}
+
+				node_pointer	getGrandParent(node_pointer node) const { return (node->getGrandParent()); }  //  Other
+
+				//  Get sibling:
+				node_pointer	getSibling(void) const { //  This 
+					node_pointer	tmp = this->getParent();
+
+					if (tmp && this->_node == tmp->left)
+						return (tmp->right);
+					else if (tmp)
+						return (tmp->left);
+					return (NULL);
+				}
+
+				node_pointer	getSibling(node_pointer node) const { return (node->getSibling()); } //  Other
+				
+				//  Get uncle:
+				node_pointer	getUncle(void) const { //  This
+					node_pointer	tmp = this->getParent();
+					
+					if (tmp)
+						return (tmp->getSibling());
+					return (NULL);
+				}
+
+				node_pointer	getUncle(node_pointer node) const { return (node->getUncle()); } //  Other
+
+			//  ------------------------ITERATORS------------------------
+
+			public:
+
+				//  Begin :
+				iterator			begin(void) { return (iterator(_minimum(this->_node))); }
+				const_iterator		begin(void) const { return (const_iterator(_minimum(this->_node))); }
+				
+				//  End :
+				iterator			end(void) { return (iterator(this->_node)); }
+				const_iterator		end(void) const { return (iterator(this->_node)); }
+
+				//  Reverse begin :
+				reverse_iterator	begin(void) 
+
+			//  ------------------------OTHERS------------------------
+
+			private:
+
+				//  Delete Tree :
+				void		_delete(node_pointer	node) {
+					if (node != NULL) {
+						_delete(node->left);
+						_delete(node->right);
+						this->_node_alloc.destroy(node);
+						this->_node_alloc.deallocate(node, 1);
+					}
+				}
+
+				//  Clear Tree :
+				void		_clear(void) {
+					_delete(this->getRoot());
+					this->setRoot(NULL);
+					this->_size = 0;
+				}
+
+				//  Copy Tree :
+				void	_copy(node_pointer node) {
+					if (node != NULL) {
+						(node->value);
+						_copy(node->left);
+						_copy(node->right);
+					}
+				}
+
+				//  Minimum Node value:
+				node_pointer	_minimum(node_pointer node) const {
+					if (node != NULL) {
+						while (node->left != NULL)
+							node = node->left;
+					}
+					return (node);
+				}
+			
+
 		};
 };
 

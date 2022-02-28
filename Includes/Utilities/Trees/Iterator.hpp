@@ -1,7 +1,14 @@
 #ifndef TREE_ITERATOR_HPP
 # define TREE_ITERATOR_HPP
-
 # include "../Iterators/Iterator.hpp" //  Iterator
+
+//  --------------------------------NODES---------------------------------
+//    -> Class Template
+//    Iterator class implented for red-black trees, aka map.
+//    It inherites from the basic iterator class and is implemented as a
+//    bidirectional iterator (accesses the sequence of elements in a range
+//    in both directions : towards the end and towards the beginning).
+//  ----------------------------------------------------------------------
 
 namespace ft
 {
@@ -125,25 +132,25 @@ namespace ft
 
 				bool operator!=(tree_iterator<const Iterator> const &lhs) const { return (this->baseNode() != lhs._node); } //  Const operator!=
 
-			//  -------------------------VALUES---------------------------
+				//  -------------------------VALUES---------------------------
 
-			private:
-				
-				//  Get minimum value (left) :
-				node_ptr	_minimum(node_ptr node)
-				{
-					while (node->left != NULL)
-						node = node->left;
-					return (node);
-				}
+				private:
+					
+					//  Get minimum value (left) :
+					node_ptr	_minimum(node_ptr node)
+					{
+						while (node->left != NULL)
+							node = node->left;
+						return (node);
+					}
 
-				//  Get maximum value (right) :
-				node_ptr	_maximum(node_ptr node)
-				{
-					while (node->right != NULL)
-						node = node->right;
-					return (node);
-				}
+					//  Get maximum value (right) :
+					node_ptr	_maximum(node_ptr node)
+					{
+						while (node->right != NULL)
+							node = node->right;
+						return (node);
+					}
 			
 		};
 };
