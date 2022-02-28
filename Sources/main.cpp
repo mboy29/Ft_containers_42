@@ -1,6 +1,4 @@
 #include "./../Includes/Ft.hpp"
-#include <vector>
-#include <iterator>
 
 using namespace ft;
 
@@ -72,12 +70,6 @@ void	testingIteratorTraits(void) {
 	for (MyIterator it = from; it != until; it++)
 		std::cout << *it << ' ';
 	std::cout << std::endl;
-	reverse_iterator<MyIterator>	rev_until(from);
-	reverse_iterator<MyIterator>	rev_from(until);
-	std::cout << "-> Reverse iterate on int[] : ";
-	for (reverse_iterator<MyIterator> rev_it = rev_from; rev_it != rev_until; rev_it++)
-		std::cout << *rev_it << ' ';
-	std::cout << std::endl << std::endl;
 }
 
 void	testingVectorCapacity(vector<char> *test) {
@@ -112,8 +104,9 @@ void	testingVectorCapacity(vector<char> *test) {
 
 void	testingVectorIterator(vector<char> *test) {
 	vector<char>::iterator	start = test->begin();
-	vector<char>::iterator	end = test->end() - 1;
-	//vector<char>::reverse_iterator	rstart = test->rbegin();
+	vector<char>::iterator	end = test->end();
+	vector<char>::reverse_iterator rstart(test->rbegin());
+	vector<char>::reverse_iterator rend(test->rend());
 
 	std::cout << "------------- [ ITERATOR ] --------------" << std::endl;
 	std::cout << "-> First element iterator : " << *start << std::endl;
@@ -121,6 +114,10 @@ void	testingVectorIterator(vector<char> *test) {
 	std::cout << "-> Vector elements with iterator : ";
 	while (start != end)
 		std::cout << *start++ << " ";
+	std::cout << std::endl;
+	std::cout << "-> Vector elements with reverse iterator : ";
+	while (rstart != rend)
+		std::cout << *rstart++ << " ";
 	std::cout << std::endl;
 	try {
 		std::cout << "-> At of 3 : " << test->at(3) << std::endl;
@@ -238,6 +235,13 @@ void	testingStack(void) {
 	std::cout << "-> Stack aka vector top element after pop : " << test2.top() << std::endl;
 }
 
+void	testingMap(void) {
+	pair<int, int>	testPair(23, 12);
+	tree_iterator<node<pair<int, int> > >::node	test(testPair);
+
+	tree_iterator<node<pair<int, int> > > it(&test);
+}
+
 int		main(void) {
 	std::cout << "--------------- [ PAIR ] ----------------" << std::endl;
 	testingPair();
@@ -249,10 +253,25 @@ int		main(void) {
 	testingVector();
 	std::cout << "--------------- [ STACK ] ---------------" << std::endl;
 	testingStack();
+	std::cout << "---------------- [ MAP ] ----------------" << std::endl;
+	testingMap();
 	std::cout << std::endl << "--------------- [ ELSE ] ----------------" << std::endl;
-
-	system("leaks ft");
+	//system("leaks ft");
 	return (0);
 }
 
+//   ADDD OVERLOAD << ET >>
 
+RBTree(value_compare const &comp, allocate_type const &alloc, node_alloc_type const &node = node_alloc_type())
+				: _comp(comp), _alloc(alloc), _node_alloc(node), _meta_node(NULL), _size(0)
+			{
+				_meta_node = _node_alloc.allocate(1);
+				_node_alloc.construct(_meta_node, node_type());
+			}
+
+			RBTree(const RBTree &ref) : _comp(ref._comp), _alloc(ref._alloc), _node_alloc(ref._node_alloc), _meta_node(NULL), _size(0)
+			{
+				_meta_node = _node_alloc.allocate(1);
+				_node_alloc.construct(_meta_node, node_type());
+				copyTree(ref.getRoot());
+			}

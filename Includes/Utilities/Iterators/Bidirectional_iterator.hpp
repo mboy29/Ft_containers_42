@@ -40,23 +40,23 @@ namespace ft
 
 			//  -------------------CONVERT TO CONST-------------------
 
-				operator bidirectional_iterator<const Iterator> () {
-					return (bidirectional_iterator<const Iterator> (this->_ptr));
-				};
-			
+			operator bidirectional_iterator<const Iterator> () {
+				return (bidirectional_iterator<const Iterator> (this->_ptr));
+			};
+		
 			//  -----------------DEREFERENCE OPERATOR-----------------
 
-			bidirectional_iterator & operator=(bidirectional_iterator const & rhs) { //  Operator=
+			bidirectional_iterator &operator=(bidirectional_iterator const &rhs) { //  Operator=
 				if (this != &rhs)
 					this->_ptr = rhs._ptr;
 				return (*this);
 			}
 
-			reference operator*(void) const {  //  Operator*
+			reference 	operator*(void) const {  //  Operator*
 				return (*(this->_ptr));
 			}
 			
-			pointer operator->(void) { //  Operator->
+			pointer 	operator->(void) { //  Operator->
 				return (this->_ptr);
 			}
 			

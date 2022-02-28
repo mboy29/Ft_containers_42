@@ -57,7 +57,7 @@ namespace ft
 					return (*(this->_ptr));
 				}
 
-				pointer		operator->(void) { //  Operator->
+				pointer		operator->(void) const { //  Operator->
 					return (this->_ptr);
 				}
 
@@ -65,8 +65,6 @@ namespace ft
 					return (*(this->_ptr + n));
 				}
 				
-
-
 				//  ------------------INCREMENT OPERATOR------------------
 				
 				random_access_iterator&	operator++(void) { //  Operator++ -> a++
@@ -133,7 +131,7 @@ namespace ft
 					return (false);
 				}
 
-				bool	operator==(random_access_iterator<const Iterator> &rhs) const { //  Operator==
+				bool	operator==(random_access_iterator<const Iterator> &rhs) const { //  Const operator==
 					if (this->base() == rhs.base())
 						return (true);
 					return (false);
@@ -145,7 +143,7 @@ namespace ft
 					return (false);
 				}
 
-				bool	operator!=(random_access_iterator<const Iterator> &rhs) const { //  Operator!=
+				bool	operator!=(random_access_iterator<const Iterator> &rhs) const { //  Const operator!=
 					if (this->base() != rhs.base())
 						return (true);
 					return (false);
@@ -260,7 +258,12 @@ namespace ft
 			}
 		
 		template <class Iterator1, class Iterator2> //  perator- -> it - it
-			typename ft::random_access_iterator<Iterator1>::difference_type operator-(const random_access_iterator<Iterator1>& lhs, const random_access_iterator<Iterator2>& rhs) {
+			typename ft::random_access_iterator<Iterator1>::difference_type operator+(random_access_iterator<Iterator1> const &lhs, random_access_iterator<Iterator2> const &rhs) {
+				return (lhs.base() + rhs.base());
+			}
+
+		template <class Iterator1, class Iterator2> //  perator- -> it - it
+			typename ft::random_access_iterator<Iterator1>::difference_type operator-(random_access_iterator<Iterator1> const &lhs, random_access_iterator<Iterator2> const &rhs) {
 				return (lhs.base() - rhs.base());
 			}
 }

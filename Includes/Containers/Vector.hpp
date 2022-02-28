@@ -29,8 +29,8 @@ namespace ft
 				typedef typename allocator_type::size_type 			size_type;
 				typedef ft::random_access_iterator<T>				iterator;
 				typedef ft::random_access_iterator<const T>			const_iterator;
-				typedef ft::reverse_iterator<T>						reverse_iterator;
-				typedef ft::reverse_iterator<const T>				const_reverse_iterator;				
+				typedef ft::reverse_iterator<iterator>				reverse_iterator;
+				typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;				
 		
 			private:
 				allocator_type		_alloc;
@@ -108,7 +108,7 @@ namespace ft
 			public :
 
 				//  Operator=
-				vector& operator= (const vector& x) {
+				vector& operator=(const vector& x) {
 					size_type 	idx = 0;
 			
 					if (this != &x) {
@@ -518,7 +518,7 @@ namespace ft
 	
 	//  ---------------------------SWAP------------------------------
 	
-	template <class T, class Alloc>
+	template <class T, class Alloc> //  Swap
 		void swap(vector<T, Alloc> &x, vector<T, Alloc> &y) { x.swap(y); }
 }	
 
