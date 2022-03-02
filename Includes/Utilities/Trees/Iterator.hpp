@@ -12,10 +12,14 @@
 
 namespace ft
 {
+		
 	template <class Iterator>
 		class tree_iterator : public ft::iterator<ft::bidirectional_iterator_tag, Iterator> {
 			
 			//  ----------------------MEMBER TYPES------------------------
+
+		template<class It>
+		class const_tree_iterator;
 
 			protected:
 				typedef iterator<bidirectional_iterator_tag, Iterator>	iterator;
@@ -52,9 +56,7 @@ namespace ft
 				
 				//  -------------------CONVERT TO CONST-------------------
 
-				operator tree_iterator<const Iterator> (void) {
-					return (tree_iterator<const Iterator> (this->_node));
-				};
+				tree_iterator(const const_tree_iterator<Iterator>& other) : _node(other.base()) {}
 
 				//  -----------------DEREFERENCE OPERATOR-----------------
 				
@@ -184,6 +186,10 @@ namespace ft
 				
 				node_pointer 	base(void) const { return (this->_node); }
 
+				//  -----------------CONVERT TO NON-CONST-----------------
+
+				const_tree_iterator(const tree_iterator<Iterator>& other) : _node(other.base()) {}
+				
 				//  -----------------DEREFERENCE OPERATOR-----------------
 
 				

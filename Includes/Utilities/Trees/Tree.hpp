@@ -62,7 +62,7 @@ namespace ft
 				//  Fill constructor (used when constrocting a map container) :
 				tree(value_compare const &comp, allocator_type const &alloc, node_allocator_type const &node_alloc = node_allocator_type())
 					: _comp(comp), _alloc(alloc), _node_alloc(node_alloc), _node(NULL), _size(0) {
-					this->_node = this->_node_alloc.allocate(1);
+					this->_node = _node_alloc.allocate(1);
 					this->_node_alloc.construct(this->_node, node_type());
 				}
 
@@ -92,8 +92,8 @@ namespace ft
 						this->_comp = rhs._comp;
 						this->_alloc = rhs._alloc;
 						this->_node_alloc = rhs._alloc;
-						this->_size = rhs._size;
 						_copy(rhs.getRoot());
+						this->_size = rhs._size;
 					}
 					return (*this);
 				}
@@ -248,8 +248,10 @@ namespace ft
 				//  Insert/map::insert rang :
 				template<class InputIterator>
 					void 				insert(InputIterator first, InputIterator last) {
-						while (first++ != last)
+						while (first != last) {
 							this->insert(*first);
+							++first;
+						}
 					}
 
 				//  Clear Tree :
@@ -258,9 +260,60 @@ namespace ft
 					this->setRoot(NULL);
 					this->_size = 0;
 				}
+			
+			//  -----------------------OPERATIONS------------------------
+
+			public:
+				//  Lower bound/Map::lower_bound :
+				iterator	lower_bound(const value_type& k) {
+					iterator	begin = this->begin();
+
+					while (begin != this->end()) {
+						if (_comp(*begin, k) ==  false)
+							break;
+						++begin;
+					}
+					return (begin);
+				}
 				
+				//  Const lower bound/Map::lower_bound (const):
+				const_iterator lower_bound(const value_type& k) const {
+					const_iterator	begin = this->begin();
+
+					while (begin != this->end()) {
+						if (_comp(*begin, k) == false)
+							break;
+						++begin;
+					}
+					return (begin);
+				}
+
+				//  Upper bound/Map::upper_bound :
+				iterator	upper_bound(const value_type& k) {
+					iterator	begin = this->begin();
+
+					while (begin != this->end()) {
+						if (_comp(k, *begin) == true)
+							break;
+						++begin;
+					}
+					return (begin);
+				}
 				
-			//  -------------------------INSERT--------------------------	
+				//  Const upper bound/Map::upper_bound (const):
+				const_iterator upper_bound(const value_type& k) const {
+					const_iterator	begin = this->begin();
+
+					while (begin != this->end()) {
+						if (_comp(k, *begin) == true)
+							break;
+						++begin;
+					}
+					return (begin);
+				}
+				
+			//  -------------------------INSERT--------------------------
+			
 			
 			private:
 				
@@ -328,7 +381,7 @@ namespace ft
 					return (tmp);
 				}
 
-				
+
 			//  -------------------------OTHERS--------------------------
 
 			private:

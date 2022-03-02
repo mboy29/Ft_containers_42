@@ -2,7 +2,7 @@ size: 5
 max_size: 384307168202282325
 
 Content is:
-- key:  | value: 0
+- key: a | value: 7
 - key: b | value: 14
 - key: c | value: 21
 - key: d | value: 28
@@ -10,20 +10,20 @@ Content is:
 ###############################################
 1
 0
-key:  | value: 0
+key: a | value: 7
 key: b | value: 14
 TEST OFFSET
-key:  | value: 0
+key: a | value: 7
 key: b | value: 14
 [rev] key: e | value: 35
 [rev] key: d | value: 28
 [rev] key: c | value: 21
 [rev] key: b | value: 14
-[rev] key:  | value: 0
+[rev] key: a | value: 7
 printReverse:
 -> key: e | value: 35
 -> key: d | value: 28
 -> key: c | value: 21
 -> key: b | value: 14
--> key:  | value: 0
+-> key: a | value: 7
 _______________________________________________

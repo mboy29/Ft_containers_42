@@ -2,23 +2,3 @@
 < max_size: 461168601842738790
 ---
 > max_size: 384307168202282325
-5c5
-< - key: a | value: 7
----
-> - key:  | value: 0
-13c13
-< key: a | value: 7
----
-> key:  | value: 0
-16c16
-< key: a | value: 7
----
-> key:  | value: 0
-22c22
-< [rev] key: a | value: 7
----
-> [rev] key:  | value: 0
-28c28
-< -> key: a | value: 7
----
-> -> key:  | value: 0

@@ -128,8 +128,10 @@ namespace ft
 				//  Size/tree::size :
 				size_type	size(void) const { return (this->_tree.size()); }
 				
-				//  Max_size/tree::max_size :
-				size_type	max_size(void) const { return (this->_tree.max_size()); }
+				//  Max_size :
+				size_type	max_size(void) const {
+					return (std::numeric_limits<difference_type>::max() / sizeof(map));
+				}
 				
 				//  --------------------ELEMENT ACCESS--------------------
 
@@ -160,6 +162,20 @@ namespace ft
 				//  Value compare :
 				value_compare	value_comp(void) const { return (value_compare(key_compare())); }
 
+				//  ----------------------OPERATIONS----------------------
+
+				//  Lower bound/Tree::lower_bound :
+				iterator 		lower_bound(const key_type& k) { return (iterator(this->_tree.lower_bound(ft::make_pair(k, mapped_type())))); }
+				const_iterator 	lower_bound(const key_type& k) const { return (const_iterator(this->_tree.lower_bound(ft::make_pair(k, mapped_type())))); }
+				
+				//  Upper bound/Tree::upper_bound :
+				iterator 		upper_bound(const key_type& k) { return (iterator(this->_tree.upper_bound(ft::make_pair(k, mapped_type())))); }
+				const_iterator 	upper_bound(const key_type& k) const { return (const_iterator(this->_tree.upper_bound(ft::make_pair(k, mapped_type())))); }
+
+				//  Equal range :
+				pair<iterator,iterator>	equal_range (const key_type& k) { return (ft::make_pair(this->lower_bound(k), this->upper_bound(k))); }
+				pair<const_iterator,const_iterator> equal_range(const key_type& k) const { return (ft::make_pair(this->lower_bound(k), this->upper_bound(k))); }
+				
 				//  --------------FRIEND RATIONAL OPERATORS---------------
 				
 				//  Operator== :
