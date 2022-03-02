@@ -1,0 +1,8 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/boymel29/Desktop/42/Ft_containers/Projet'
+clang++ -Wall -Werror -Wextra   -c -o Sources/main.o Sources/main.cpp
+echo "\x1b[37m\x1b[1m--> Compiling ...\033[0m"
+clang++ -Wall -Werror -Wextra -o ft ./Sources/main.o
+echo "\x1b[37m\x1b[1m--> Here we go ! \033[0m"
+make: Leaving directory `/Users/boymel29/Desktop/42/Ft_containers/Projet'
+ 

@@ -235,14 +235,25 @@ void	testingStack(void) {
 	std::cout << "-> Stack aka vector top element after pop : " << test2.top() << std::endl;
 }
 
-#define T1 int
-#define T2 int
-typedef pair<const T1, T2> T3;
-# include <map>
-
 void	testingMap(void) {
-	pair<int, int>			testPair(23, 12);
-	(void)testPair;
+	map<int, std::string>	test1; //  Default constructor
+	
+	test1[1] = "One"; //  Operator[]
+	test1[2] = "Two";
+	test1[3] = "Three";
+
+	std::cout << "-> Testing map on following map<int, std::string> :" << std::endl;
+	for (map<int, std::string>::iterator it = test1.begin(); it != test1.end(); it++) //  begin() & end() & tree_iterator
+		std::cout << "   [ " << it->first << " ] [ " << it->second << " ]" << std::endl ;
+	std::cout << "-> Reverse :";
+	for (map<int, std::string>::reverse_iterator it = test1.rbegin(); it != test1.rend(); it++) //  begin() & end() & tree_iterator
+		std::cout << "   [ " << it->first << " ] [ " << it->second << " ]" << std::endl ;
+	if (test1.empty())
+		std::cout << "-> Map is empty" << std::endl;
+	else
+		std::cout << "-> Map is not empty" << std::endl;
+	std::cout << "-> Map size : " << test1.size() << std::endl;
+	std::cout << "-> Map max size : " << test1.max_size() << std::endl;
 }
 
 int		main(void) {

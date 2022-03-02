@@ -40,7 +40,7 @@ namespace ft
 
 			//  -------------------CONVERT TO CONST-------------------
 
-			operator bidirectional_iterator<const Iterator> () {
+			operator bidirectional_iterator<const Iterator> (void) {
 				return (bidirectional_iterator<const Iterator> (this->_ptr));
 			};
 		

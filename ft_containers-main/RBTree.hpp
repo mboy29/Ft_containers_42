@@ -1,8 +1,4 @@
-
-
-namespace ft
-{
-    template <class T, class Compare, class Alloc = std::allocator<T> >
+ template <class T, class Compare, class Alloc = std::allocator<T> >
     class RBTree
     {
         public:
@@ -104,7 +100,7 @@ namespace ft
 			{
 				if (node != NULL)
 				{
-					(node->value);
+					insertValue(node->value);
 					copyTree(node->left);
 					copyTree(node->right);
 				}
@@ -147,7 +143,7 @@ namespace ft
 
 			pair<iterator,bool> insert (const value_type& val)
 			{
-				return ((val));
+				return (insertValue(val));
 			}
 
 			iterator insert (iterator position, const value_type& val)
@@ -664,7 +660,3 @@ namespace ft
 				return (1);
 			}
     };
-
-}
-
-#endif

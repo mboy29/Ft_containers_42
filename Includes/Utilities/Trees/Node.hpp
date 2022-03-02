@@ -24,9 +24,7 @@ namespace ft
 
 			value_type		value;
 			color_type		color;
-			node			*parent;
-			node			*left;
-			node			*right;
+			node			*parent, *left, *right;
 
 			//  -----------------------CONSTRUCTORS-----------------------
 			

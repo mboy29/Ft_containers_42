@@ -1,30 +1,24 @@
-1,29d0
-< size: 5
+2c2
 < max_size: 461168601842738790
-< 
-< Content is:
+---
+> max_size: 384307168202282325
+5c5
 < - key: a | value: 7
-< - key: b | value: 14
-< - key: c | value: 21
-< - key: d | value: 28
-< - key: e | value: 35
-< ###############################################
-< 1
-< 0
+---
+> - key:  | value: 0
+13c13
 < key: a | value: 7
-< key: b | value: 14
-< TEST OFFSET
+---
+> key:  | value: 0
+16c16
 < key: a | value: 7
-< key: b | value: 14
-< [rev] key: e | value: 35
-< [rev] key: d | value: 28
-< [rev] key: c | value: 21
-< [rev] key: b | value: 14
+---
+> key:  | value: 0
+22c22
 < [rev] key: a | value: 7
-< printReverse:
-< -> key: e | value: 35
-< -> key: d | value: 28
-< -> key: c | value: 21
-< -> key: b | value: 14
+---
+> [rev] key:  | value: 0
+28c28
 < -> key: a | value: 7
-< _______________________________________________
+---
+> -> key:  | value: 0

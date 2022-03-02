@@ -16,21 +16,21 @@ namespace ft
 		class tree_iterator : public ft::iterator<ft::bidirectional_iterator_tag, Iterator> {
 			
 			//  ----------------------MEMBER TYPES------------------------
-		
+
 			protected:
-				typedef iterator<random_access_iterator_tag, Iterator>	iterator;
+				typedef iterator<bidirectional_iterator_tag, Iterator>	iterator;
 			
 			public:
-				typedef typename iterator::value_type			value_type;
-				typedef typename iterator::difference_type		difference_type;
-				typedef typename iterator::pointer				pointer;
-				typedef typename iterator::reference			reference;
-				typedef typename iterator::iterator_category	iterator_category;
-				typedef	ft::node<Iterator>						node;
-				typedef ft::node<Iterator>						*node_ptr;
+				typedef typename iterator::value_type					value_type;
+				typedef typename iterator::difference_type				difference_type;
+				typedef typename iterator::pointer						pointer;
+				typedef typename iterator::reference					reference;
+				typedef typename iterator::iterator_category			iterator_category;
+				typedef ft::node<Iterator>								node;
+				typedef ft::node<Iterator>*								node_pointer;
 			
 			private:
-				node_ptr						_node;
+				node_pointer											_node;
 			
 			//  ---------------------MEMBER FUNCTIONS---------------------
 			
@@ -38,49 +38,43 @@ namespace ft
 			
 				//  ---------------------CONSTRUCTORS---------------------
 			
-			
-				tree_iterator(void): _node(NULL) {} //  Default Constructor
-				tree_iterator(node_ptr node) : _node(node) {} //  Fill constructor
+				tree_iterator(void) : _node(NULL) {} //  Default Constructor
+				tree_iterator(node_pointer node) : _node(node) {} //  Fill constructor
 				tree_iterator(tree_iterator const &rhs) : _node(rhs._node) {} //  Copy Constructor
-			
+				
 				//  ----------------------DESTRUCTOR----------------------
 			
 				virtual ~tree_iterator(void) {}
 				
 				//  -------------------------BASE-------------------------
 				
-				node_ptr	baseNode(void) const { return (this->_node); }
+				node_pointer	base(void) const { return (this->_node); }
 				
 				//  -------------------CONVERT TO CONST-------------------
 
 				operator tree_iterator<const Iterator> (void) {
-					return (tree_iterator<const Iterator> (this->_ptr));
+					return (tree_iterator<const Iterator> (this->_node));
 				};
 
 				//  -----------------DEREFERENCE OPERATOR-----------------
 				
-				tree_iterator& operator=(const tree_iterator& ref)
+				tree_iterator& 	operator=(tree_iterator const &ref) //  Operator=
 				{
 					if (this != &ref)
 						this->_node = ref._node;
 					return (*this);
 				}
 
-				reference	operator*(void) const { //  Operator*
-					return (*(this->_ptr));
-				}
+				reference		operator*(void) const { return (this->_node->value); } //  Operator*
 
-				pointer		operator->(void) const { //  Operator->
-					return (this->_ptr);
-				}
+				pointer			operator->(void) const { return (&(this->_node->value)); } //  Operator->
 
 				//  ------------------INCREMENT OPERATOR------------------
 
-				tree_iterator &operator++(void) { //  Operator++ -> a++
+				tree_iterator &operator++(void) { //  Operator++ -> post-incrementation
 					if (this->_node->parent == NULL)
 						this->_node = NULL;
-					if (this->_node->right != NULL)
-					{
+					if (this->_node->right != NULL) {
 						this->_node = _minimum(this->_node->right);
 						return (*this);
 					}
@@ -91,7 +85,7 @@ namespace ft
 					return (*this);
 				}
 
-				tree_iterator operator++(int) { //  Operator++ -> ++a
+				tree_iterator operator++(int) { //  Operator++ -> pre-incrementation
 					tree_iterator tmp = *this;
 					
 					++(*this);
@@ -100,14 +94,14 @@ namespace ft
 
 				//  ------------------DECREMENT OPERATOR------------------
 
-				tree_iterator	&operator--(void) { //  Operator-- -> a--
+				tree_iterator	&operator--(void) { //  Operator-- -> post-incrementation
 					if (this->_node->left != NULL)
 					{
 						this->_node = _maximum(this->_node->left);
 						return (*this);
 					}
 					while (this->_node->parent && this->_node->parent->left == this->_node)
-						this->_node =this->_node->parent;
+						this->_node = this->_node->parent;
 					if (this->_node->parent)
 						this->_node = this->_node->parent;
 					else
@@ -115,7 +109,7 @@ namespace ft
 					return(*this);
 				}
 
-				tree_iterator operator--(int) { //  Operator-- -> --a
+				tree_iterator operator--(int) { //  Operator-- -> pre-incrementation
 					tree_iterator tmp = *this;
 					
 					--(*this);
@@ -124,34 +118,157 @@ namespace ft
 
 				//  ------------IN/EQUALITY RELATIONAL OPERATOR------------
 
-				bool operator==(tree_iterator const &lhs) const { return (this->baseNode() == lhs._node); } //  Operator==
+				bool operator==(tree_iterator const &lhs) { return (this->_node == lhs.base()); } //  Operator==
 
-				bool operator==(tree_iterator<const Iterator> const &lhs) const { return (this->baseNode() == lhs._node); } //  Const operator==
+				bool operator==(tree_iterator<const Iterator> const &lhs) const { return (this->_node == lhs.base()); } //  Const operator==
 
-				bool operator!=(tree_iterator const &lhs) const { return (this->baseNode() != lhs._node); } //  Operator!=
+				bool operator!=(tree_iterator const &lhs) { return (this->_node != lhs.base()); } //  Operator!=
 
-				bool operator!=(tree_iterator<const Iterator> const &lhs) const { return (this->baseNode() != lhs._node); } //  Const operator!=
+				bool operator!=(tree_iterator<const Iterator> const &lhs) const { return (this->_node != lhs.base()); } //  Const operator!=
 
 				//  -------------------------VALUES---------------------------
 
 				private:
 					
 					//  Get minimum value (left) :
-					node_ptr	_minimum(node_ptr node)
-					{
+					node_pointer	_minimum(node_pointer node) {
 						while (node->left != NULL)
 							node = node->left;
 						return (node);
 					}
 
 					//  Get maximum value (right) :
-					node_ptr	_maximum(node_ptr node)
-					{
+					node_pointer	_maximum(node_pointer node) {
 						while (node->right != NULL)
 							node = node->right;
 						return (node);
 					}
 			
+		};
+
+	template <class Iterator>
+		class const_tree_iterator : public ft::iterator<ft::bidirectional_iterator_tag, const Iterator> {
+			
+			//  ----------------------MEMBER TYPES------------------------
+
+			protected:
+					typedef iterator<bidirectional_iterator_tag, Iterator>	iterator;
+				
+				public:
+					typedef ft::node<Iterator>								node;
+					typedef ft::node<Iterator>*								node_pointer;
+					typedef typename iterator::value_type					value_type;
+					typedef typename iterator::difference_type				difference_type;
+					typedef typename iterator::pointer						pointer;
+					typedef typename iterator::reference					reference;
+					typedef typename iterator::iterator_category			iterator_category;
+				
+				private:
+					node_pointer											_node;
+
+			//  ---------------------MEMBER FUNCTIONS---------------------
+			
+			public:
+			
+				//  ---------------------CONSTRUCTORS---------------------
+				
+				const_tree_iterator(void): _node(NULL) {} //  //  Default Constructor
+				const_tree_iterator(const_tree_iterator const &ref) : _node(ref._node) {} //  Fill constructor
+				const_tree_iterator(node_pointer node) : _node(node) {} //  Copy Constructor
+				
+				//  ----------------------DESTRUCTOR----------------------
+				
+				virtual ~const_tree_iterator(void) {}
+				
+				//  -------------------------BASE-------------------------
+				
+				node_pointer 	base(void) const { return (this->_node); }
+
+				//  -----------------DEREFERENCE OPERATOR-----------------
+
+				
+				const_tree_iterator& operator=(const_tree_iterator const &ref) { //  Operator=
+					if (this != &ref)
+						this->_node = ref._node;
+					return (*this);
+				}
+
+				reference 			operator*(void) const { return (this->_node->value); } //  Operator*
+
+				pointer 			operator->(void) const { return (&(this->_node->value)); } //  Operator->
+
+				//  ------------------INCREMENT OPERATOR------------------
+				
+				const_tree_iterator&	operator++(void) { //  Operator++ -> post-incrementation
+					if (this->_node->parent == NULL) 
+						this->_node = NULL;
+					if (this->_node->right != NULL) {
+						this->_node = _minimum(this->_node->right);
+						return (*this);
+					}
+					while (this->_node->parent && this->_node->parent->right == this->_node)
+						this->_node = this->_node->parent;
+					if (this->_node->parent)
+						this->_node = this->_node->parent;
+					return (*this);
+				}
+
+				const_tree_iterator operator++(int) { //  Operator++ -> pre-incrementation
+					const_tree_iterator tmp = *this;
+					
+					++(*this);
+					return (tmp);
+				}
+
+				//  ------------------DECREMENT OPERATOR------------------
+
+				const_tree_iterator&	operator--(void) { //  Operator-- -> post-incrementation
+					if (this->_node->left != NULL) {
+						this->_node = _maximum(this->_node->left);
+						return (*this);
+					}
+					while (this->_node->parent && this->_node->parent->left == this->_node)
+						this->_node = this->_node->parent;
+					if (this->_node->parent)
+						this->_node = this->_node->parent;
+					else
+						this->_node = NULL;
+					return (*this);
+				}
+
+				const_tree_iterator operator--(int) { //  Operator-- -> pre-incrementation
+					const_tree_iterator tmp = *this;
+					
+					--(*this);
+					return (tmp);
+				}
+
+				//  ------------IN/EQUALITY RELATIONAL OPERATOR------------
+
+				bool operator==(const_tree_iterator const &lhs) { return (this->_node == lhs.base()); } //  Operator==
+
+				bool operator==(tree_iterator<Iterator> const &lhs) { return (this->_node == lhs.base()); } //  Operator==
+
+				bool operator!=(const_tree_iterator const& lhs) { return (this->_node !=lhs.base()); } //  Operator!=
+
+				bool operator!=(tree_iterator<Iterator> const &lhs) { return (this->_node != lhs.base()); } //  Operator!=
+				
+				//  -------------------------VALUES---------------------------
+				
+				//  Get minimum value (left) :
+				node_pointer	_minimum(node_pointer node) {
+					while (node->left != NULL)
+						node = node->left;
+					return (node);
+				}
+
+				//  Get maximum value (right) :
+				node_pointer	_maximum(node_pointer node)
+				{
+					while (node->right != NULL)
+						node = node->right;
+					return (node);
+				}
 		};
 };
 
