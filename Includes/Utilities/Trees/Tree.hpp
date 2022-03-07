@@ -532,7 +532,7 @@ namespace ft
 
 				//  Erase value:
 				size_type	_eraseValue(value_type const &val) {
-					node_pointer	tmp = NULL;
+					node_pointer	tmp;
 					
 					if (!(tmp = _eraseNode(this->getRoot(), val)))
 						return (0);

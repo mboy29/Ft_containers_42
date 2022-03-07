@@ -10,7 +10,7 @@ key: 38 | value: buzz
 key: 55 | value: inside too
 ---------------------------------------------
 size: 7
-max_size: 768614336404564650
+max_size: 256204778801521550
 
 Content is:
 - key: 21 | value: fizz
