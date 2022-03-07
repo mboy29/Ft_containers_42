@@ -46,7 +46,6 @@ int		main(void)
 	for (unsigned int i = 0; i < lst_size; ++i)
 		lst.push_back(T3(i + 1, (i + 1) * 3));
 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
-	std::cout << "--> SIZE = " << mp.max_size() << std::endl;
 	printSize(mp);
 
 	ft_const_bound(mp, -10);

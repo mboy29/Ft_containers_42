@@ -45,54 +45,38 @@ namespace ft
 			public:
 	
 				//  Default constructor :
-				explicit vector(const allocator_type& alloc = allocator_type()) {
-					this->_alloc = alloc;
-					this->_ptr = NULL;
-					this->_start = NULL;
-					this->_end = NULL;
-					this->_size = 0;
-					this->_capacity = 0;
-				}
+				explicit vector(const allocator_type& alloc = allocator_type())
+					: _alloc(alloc), _ptr(NULL), _start(NULL), _end(NULL), _size(0), _capacity(0) {}
 
 				//  Fill constructor:
-				explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) {
-					this->_alloc = alloc;
+				explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+					: _alloc(alloc), _ptr(NULL), _start(NULL), _end(NULL), _size(n), _capacity(n) {
 					if (!(this->_ptr = this->_alloc.allocate(n)))
 						throw std::bad_alloc();
 					for (size_type idx = 0; idx < n; idx += 1)
 						this->_alloc.construct(this->_ptr + idx, val);
 					this->_start = this->_ptr;
 					this->_end = this->_ptr + n - 1;
-					this->_size = n;
-					this->_capacity = n;
 				}
 
 				//  Range constructor:
 				template<class InputIterator>
-        			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename enable_if<!is_integral<InputIterator>::value, bool>::type = false) {
-						difference_type	new_dst = ft::distance<InputIterator>(first, last);	
+        			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename enable_if<!is_integral<InputIterator>::value, bool>::type = false)
+						: _alloc(alloc), _ptr(NULL), _start(NULL), _end(NULL), _size(0), _capacity(0) {
+						difference_type	size = ft::distance<InputIterator>(first, last);	
 						
-						this->_alloc = alloc;
-						if (!(this->_ptr = this->_alloc.allocate(new_dst)))
+						if (!(this->_ptr = this->_alloc.allocate(size)))
 							throw std::bad_alloc();
 						for (size_type idx = 0; first != last; idx += 1)
 							this->_alloc.construct(this->_ptr + idx, *first++);
 						this->_start = this->_ptr;
-						this->_end = this->_ptr + (new_dst - 1);
-						this->_size = new_dst;
-						this->_capacity = new_dst;
+						this->_end = this->_ptr + (size - 1);
+						this->_size = size;
+						this->_capacity = size;
 					}
 				
 				//  Copy constructor:
-				vector(const vector& x) {
-					this->_alloc = x._alloc;
-					this->_ptr = NULL;
-					this->_start = NULL;
-					this->_end = NULL;
-					this->_size = 0;
-					this->_capacity = 0;
-					*this = x;
-				}
+				vector(const vector& x) : _alloc(x._alloc), _ptr(NULL), _start(NULL), _end(NULL), _size(0), _capacity(0) { *this = x; }
 			
 			//  ---------------------DESTRUCTOR--------------------------
 
@@ -111,25 +95,25 @@ namespace ft
 				vector& operator=(const vector& x) {
 					size_type 	idx = 0;
 			
-					if (this != &x) {
-						this->clear();
-						this->_alloc.deallocate(this->_ptr, this->capacity());
-						if (!(this->_ptr = this->_alloc.allocate(x.capacity())))
-							throw std::bad_alloc();
-						this->_capacity = x.capacity();
-						if (x._ptr == NULL) {
-							this->_ptr = NULL;
-							this->_start = NULL;
-							this->_end = NULL;
-							this->_size = 0;
-						}
-						else if (x._ptr != NULL) {
-							for (const_iterator it = x.begin(); it < x.end(); it += 1)
-								this->_alloc.construct(this->_ptr + idx++, *it);
-							this->_start = this->_ptr;
-							this->_end = this->_ptr + idx - 1;
-							this->_size = x.size();
-						}
+					if (this == &x)
+						return (*this);
+					this->clear();
+					this->_alloc.deallocate(this->_ptr, this->capacity());
+					if (!(this->_ptr = this->_alloc.allocate(x.capacity())))
+						throw std::bad_alloc();
+					this->_capacity = x.capacity();
+					if (!x._ptr) {
+						this->_ptr = NULL;
+						this->_start = NULL;
+						this->_end = NULL;
+						this->_size = 0;
+					}
+					else if (x._ptr) {
+						for (const_iterator it = x.begin(); it < x.end(); it += 1)
+							this->_alloc.construct(this->_ptr + idx++, *it);
+						this->_start = this->_ptr;
+						this->_end = this->_ptr + idx - 1;
+						this->_size = x.size();
 					}
 					return (*this);
 				}
@@ -171,32 +155,31 @@ namespace ft
 					allocator_type	new_alloc;
 					size_type		size = this->size();
 
-					if (n >= 0) {
-						if (n > this->capacity()) {
-							if (!(new_ptr = new_alloc.allocate(n)))
-								throw std::bad_alloc();
-							for (size_type idx = 0; idx < size; idx += 1)
-								new_alloc.construct(new_ptr + idx, this->_ptr[idx]);
-							this->clear();
-							this->_alloc.deallocate(this->_ptr, this->capacity());
-							this->_size = n;
-							this->_capacity = n;
-							this->_ptr = new_ptr;
-							this->_start = this->_ptr;
-							this->_end = this->_ptr + (this->size() - 1);
-						}
-						if (n > size) {
-							for (size_type idx = size; idx < n; idx += 1)
-								this->_alloc.construct(this->_ptr + idx, val);
-							this->_size = n;
-						}
-						else if (n < size) {
-							for (size_type idx = size - n; idx < size; idx += 1)
-								this->_alloc.destroy(this->_start + idx);
-							this->_size -= (size - n);
-							this->_end = this->_ptr + (this->size() - 1);
-							
-						}
+					if (n < 0) 
+						return ;
+					if (n > this->capacity()) {
+						if (!(new_ptr = new_alloc.allocate(n)))
+							throw std::bad_alloc();
+						for (size_type idx = 0; idx < size; idx += 1)
+							new_alloc.construct(new_ptr + idx, this->_ptr[idx]);
+						this->clear();
+						this->_alloc.deallocate(this->_ptr, this->capacity());
+						this->_size = n;
+						this->_capacity = n;
+						this->_ptr = new_ptr;
+						this->_start = this->_ptr;
+						this->_end = this->_ptr + (this->size() - 1);
+					}
+					if (n > size) {
+						for (size_type idx = size; idx < n; idx += 1)
+							this->_alloc.construct(this->_ptr + idx, val);
+						this->_size = n;
+					}
+					else if (n < size) {
+						for (size_type idx = size - n; idx < size; idx += 1)
+							this->_alloc.destroy(this->_start + idx);
+						this->_size -= (size - n);
+						this->_end = this->_ptr + (this->size() - 1);	
 					}
 				}
 

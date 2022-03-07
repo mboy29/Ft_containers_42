@@ -21,7 +21,7 @@
 
 namespace ft
 {
-	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
+	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::node< ft::pair<const Key, T> > > >
 		class map
 		{
 
@@ -66,8 +66,10 @@ namespace ft
 			};
 
 			private:
-				typedef tree<value_type, value_compare, allocator_type>  _tree_type;
-				_tree_type												 _tree;
+				typedef ft::node<value_type>								_node;
+				typedef typename Alloc::template rebind<_node>::other 		_rebind;
+				typedef tree<value_type, value_compare, _rebind>			_tree_type;
+				_tree_type												 	_tree;
 			
 			//  ---------------------MEMBER FUNCTIONS---------------------
 
@@ -130,7 +132,7 @@ namespace ft
 				
 				//  Max_size :
 				size_type	max_size(void) const {
-					return (std::numeric_limits<difference_type>::max() / sizeof(map));
+					return (this->_tree.max_size());
 				}
 				
 				//  --------------------ELEMENT ACCESS--------------------
@@ -141,16 +143,19 @@ namespace ft
 				//  ----------------------MODIFIERS-----------------------
 				
 				
-				//  Insert/tree::insert single element (empty tree) :
-				pair<iterator, bool>	insert(const value_type& val) { return (this->_tree.insert(val)); }
-				
-				//  Insert/tree::insert "hint" :
-				iterator 				insert(iterator position, const value_type& val) { return (this->_tree.insert(position, val)); }
-			
-				//  Insert/tree::insert rang :
+				//  Insert/tree::insert :
+				pair<iterator, bool>	insert(const value_type& val) { return (this->_tree.insert(val)); } //  Single element
+				iterator 				insert(iterator position, const value_type& val) { return (this->_tree.insert(position, val)); } //  By hint
 				template <class InputIterator>
-					void 				insert(InputIterator first, InputIterator last) {	return (this->_tree.insert(first, last)); }
+					void 				insert(InputIterator first, InputIterator last) {	return (this->_tree.insert(first, last)); } //  By range
 
+				//  Erase/tree::erase :
+				void 					erase(iterator position) { return (this->_tree.erase(position)); } //  By position
+				size_type				erase(const key_type& k) { return (this->_tree.erase(ft::make_pair(k, mapped_type()))); } //  By value
+				void 					erase(iterator first, iterator last) { return (this->_tree.erase(first, last)); } //  By range
+				
+				//  Swap :
+				void 					swap(map& x) { return (this->_tree.swap(x._tree)); }
 				//  Clear :
 				void 					clear(void) { return (this->_tree.clear()); }
 
@@ -164,6 +169,12 @@ namespace ft
 
 				//  ----------------------OPERATIONS----------------------
 
+				//  Find/tree::find :
+				iterator 		find(const key_type& k) { return (iterator(this->_tree.find(ft::make_pair(k, mapped_type())))); }
+				const_iterator 	find(const key_type& k) const { return (const_iterator(this->_tree.find(ft::make_pair(k, mapped_type())))); }
+				
+				//  Count/tree::count :
+				size_type 		count(const key_type& k) const { return (this->_tree.count(ft::make_pair(k, mapped_type()))); }
 				//  Lower bound/Tree::lower_bound :
 				iterator 		lower_bound(const key_type& k) { return (iterator(this->_tree.lower_bound(ft::make_pair(k, mapped_type())))); }
 				const_iterator 	lower_bound(const key_type& k) const { return (const_iterator(this->_tree.lower_bound(ft::make_pair(k, mapped_type())))); }

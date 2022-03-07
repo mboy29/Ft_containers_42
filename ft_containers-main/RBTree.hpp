@@ -55,7 +55,7 @@
 				return (*this);
 			}
 
-			void swap(RBTree &other)
+			void (RBTree &other)
 			{
 				if (this == &other)
 					return ;

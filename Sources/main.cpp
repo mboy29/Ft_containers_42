@@ -244,9 +244,9 @@ void	testingMapIterator(map<int, std::string> *test) {
 		std::cout << "   [ " << it->first << " ] [ " << it->second << " ]" << std::endl ;
 }
 
-void	testingMapOperations(map<int, std::string> *test) {
+// void	testingMapOperations(map<int, std::string> *test) {
 
-}
+// }
 
 void	testingMap(void) {
 	map<int, std::string>	test1; //  Default constructor

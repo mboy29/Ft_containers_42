@@ -1,6 +1,5 @@
---> SIZE = 384307168202282325
 size: 10
-max_size: 384307168202282325
+max_size: 768614336404564650
 
 Content is:
 - key: 1 | value: 3
@@ -40,7 +39,7 @@ lower_bound: end()
 upper_bound: end()
 equal_range: 1
 size: 10
-max_size: 384307168202282325
+max_size: 768614336404564650
 
 Content is:
 - key: 1 | value: 3
@@ -65,7 +64,7 @@ lower_bound: key: 7 | value: 21
 upper_bound: key: 8 | value: 842
 equal_range: 1
 size: 10
-max_size: 384307168202282325
+max_size: 768614336404564650
 
 Content is:
 - key: 1 | value: 3

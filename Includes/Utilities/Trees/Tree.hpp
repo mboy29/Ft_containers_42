@@ -21,7 +21,7 @@
 
 namespace ft
 {
-	template <class Pair, class Compare, class Alloc = std::allocator<Pair> >
+	template <class Pair, class Compare = std::less<Pair>, class Alloc = std::allocator<Pair> >
 		class tree {
 
 			//  ----------------------MEMBER TYPES------------------------
@@ -30,10 +30,10 @@ namespace ft
 				typedef tree												tree_type;
 				typedef ft::node<Pair>										node_type;
 				typedef ft::node<Pair>*										node_pointer;
-				typedef std::allocator<node_type>							node_allocator_type;
 				typedef	Pair												value_type;
 				typedef	Compare												value_compare;
 				typedef	Alloc												allocator_type;
+				typedef std::allocator<node_type>							node_allocator_type;
 				typedef	typename allocator_type::reference					reference;
 				typedef	typename allocator_type::const_reference			const_reference;
 				typedef	typename allocator_type::pointer					pointer;
@@ -230,7 +230,7 @@ namespace ft
 				size_type	size(void) const { return (this->_size); }
 
 				//  Maximum siwe :
-				size_type	max_size(void) const { return (this->_node_alloc.max_size()); }
+				size_type	max_size(void) const { return (this->_alloc.max_size()); }
 			
 			//  ------------------------MODIFIERS------------------------
 
@@ -254,6 +254,37 @@ namespace ft
 						}
 					}
 
+				//  Erase/map::erase by position :
+				void 		erase(const_iterator position) { _eraseValue(*position); }
+				
+				//  Erase/map::erase by value :
+				size_type	erase(value_type const &val) { return (_eraseValue(val)); }
+
+				//  Erase/map::erase by range :
+				void 		erase(const_iterator first, const_iterator last) {
+					for (const_iterator it = first; it != last; it++)
+						erase(it);
+				}
+
+				//  Swap :
+				void		swap(tree &rhs) {
+					tree	*tmp = NULL;
+
+					if (this == &rhs) {
+						tmp = &rhs;
+						rhs._comp = this->_comp;
+						rhs._alloc = this->_alloc;
+						rhs._node_alloc = this->_node_alloc;
+						rhs._node = this->_node;
+						rhs._size = this->_size;
+						this->_comp = tmp->_comp;
+						this->_alloc = tmp->_alloc;
+						this->_node_alloc = tmp->_alloc;
+						this->_node = tmp->_node;
+						this->_size = tmp->_size;
+					}
+				}
+
 				//  Clear Tree :
 				void		clear(void) {
 					_delete(this->getRoot());
@@ -264,8 +295,35 @@ namespace ft
 			//  -----------------------OPERATIONS------------------------
 
 			public:
+
+				//  Find/map::find :
+				node_pointer	find(value_type const &val) const {
+					node_pointer	tmp = getRoot();
+					
+					while (tmp) {
+						if (!(_comp(tmp->value, val)) && !(_comp(val, tmp->value)))
+							break ;
+						else if (_comp(tmp->value, val))
+							tmp = tmp->right;
+						else
+							tmp = tmp->left;
+					}
+					if (!tmp)
+						return (this->_node);
+					return (tmp);
+				}
+
+				//  Count/map::count :
+				size_type		count(value_type const &val) const {
+					const_iterator	tmp = find(val);
+
+					if (tmp == this->end())
+						return (0);
+					return (1);
+				}
+
 				//  Lower bound/Map::lower_bound :
-				iterator	lower_bound(const value_type& k) {
+				iterator		lower_bound(const value_type& k) {
 					iterator	begin = this->begin();
 
 					while (begin != this->end()) {
@@ -277,7 +335,7 @@ namespace ft
 				}
 				
 				//  Const lower bound/Map::lower_bound (const):
-				const_iterator lower_bound(const value_type& k) const {
+				const_iterator	lower_bound(const value_type& k) const {
 					const_iterator	begin = this->begin();
 
 					while (begin != this->end()) {
@@ -289,7 +347,7 @@ namespace ft
 				}
 
 				//  Upper bound/Map::upper_bound :
-				iterator	upper_bound(const value_type& k) {
+				iterator		upper_bound(const value_type& k) {
 					iterator	begin = this->begin();
 
 					while (begin != this->end()) {
@@ -301,7 +359,7 @@ namespace ft
 				}
 				
 				//  Const upper bound/Map::upper_bound (const):
-				const_iterator upper_bound(const value_type& k) const {
+				const_iterator	upper_bound(const value_type& k) const {
 					const_iterator	begin = this->begin();
 
 					while (begin != this->end()) {
@@ -327,11 +385,11 @@ namespace ft
 						grandparent = getGrandParent(node);
 						uncle = getUncle(node);
 						if (getColor(uncle) == RED)
-							_recolor(node);
+							_insertRecolor(node);
 						else if (parent == grandparent->left)
-							(node == parent->right) ? _rotate(node, parent) : _swap(node, parent, grandparent);
+							(node == parent->right) ? _insertRotate(node, parent) : _insertSwap(node, parent, grandparent);
 						else if (parent == grandparent->right)
-							(node == parent->left) ? _rotate(node, parent) : _swap(node, parent, grandparent);
+							(node == parent->left) ? _insertRotate(node, parent) : _insertSwap(node, parent, grandparent);
 					}
 					setColor(this->getRoot(), BLACK);
 				}
@@ -381,6 +439,107 @@ namespace ft
 					return (tmp);
 				}
 
+			//  --------------------------ERASE--------------------------
+
+			private:
+
+				//  Erase :
+				void			_erase(node_pointer node) {
+					node_pointer ptr = NULL, parent = NULL, tmp = NULL;
+					
+					if (node) {
+						if (node == this->getRoot())
+							return (_eraseRoot(node));
+						if (getColor(node) == RED || getColor(node->left) == RED || getColor(node->right) == RED)
+							return (_eraseRed(node));
+						tmp = node;
+						setColor(tmp, UNDEFINED);
+						while (tmp != this->getRoot() && getColor(tmp) == UNDEFINED) {
+							parent = tmp->parent;
+							if (tmp == parent->left)
+								ptr = parent->right;
+							else
+								ptr = parent->left;
+							if (getColor(ptr) == RED)
+								_eraseRotate1(ptr, parent);
+							else if (getColor(ptr->left) == BLACK && getColor(ptr->right) == BLACK)
+								_eraseRecolor(ptr, parent, tmp);
+							else {
+								if ((tmp == parent->left && getColor(ptr->right) == BLACK)
+									|| (tmp == parent->right && getColor(ptr->left) == BLACK))
+									_eraseRotate2(ptr, parent);
+								_eraseRotate3(ptr, parent);
+								break;
+							}
+						}
+						if (node == node->parent->left)
+							node->parent->left = NULL;
+						else
+							node->parent->right = NULL;
+						this->_node_alloc.destroy(node);
+						this->_node_alloc.deallocate(node, 1);
+						setColor(this->getRoot(), BLACK);
+					}
+				}
+
+				//  Erase node :
+				node_pointer	_eraseNode(node_pointer node, value_type const &val) {
+					node_pointer	tmp1 = NULL, tmp2 = NULL, tmp3 = NULL;
+
+					if (node && node->left && node->right) {
+						if (_comp(node->value, val))
+							return (_eraseNode(node->right, val));
+						if (_comp(val, node->value))
+							return (_eraseNode(node->left, val));
+						tmp1 = _minimum(node->right);
+						if (node->parent) {
+							if (node->parent->left == node)
+								node->parent->left = tmp1;
+							if (node->parent->right == node)
+								node->parent->right = tmp1;
+						}
+						if (tmp1->parent == node) {
+							tmp1->left = node->left;
+							node->left->parent = tmp1;
+							node->left = NULL;
+							tmp1->parent = node->parent;
+							node->parent = tmp1;
+							node->right = tmp1->right;
+							tmp1->right = node;
+						}
+						else {
+							if (tmp1->parent->left == tmp1)
+								tmp1->parent->left = node;
+							if (tmp1->parent->right == tmp1)
+								tmp1->parent->right = node;
+							tmp2 = tmp1->parent;
+							node->right->parent = tmp1;
+							tmp1->parent = node->parent;
+							node->parent = tmp2;
+							tmp1->left = node->left;
+							node->left->parent = tmp1;
+							node->left = NULL;
+							tmp3 = tmp1->right;
+							tmp1->right = node->right;
+							node->right = tmp3;
+						}
+						std::swap(tmp1->color, node->color);
+						return (_eraseNode(tmp1->right, val));
+
+					}
+					return (node);
+				}
+
+				//  Erase value:
+				size_type	_eraseValue(value_type const &val) {
+					node_pointer	tmp = NULL;
+					
+					if (!(tmp = _eraseNode(this->getRoot(), val)))
+						return (0);
+					_erase(tmp);
+					this->_size -= 1;
+					return (1);
+				}
 
 			//  -------------------------OTHERS--------------------------
 
@@ -414,25 +573,7 @@ namespace ft
 					return (node);
 				}
 
-				//  Recolor (_insert) :
-				void	_recolor(node_pointer &node) {
-					setColor(getParent(node), BLACK);
-					setColor(getGrandParent(node), RED);
-					setColor(getUncle(node), BLACK);
-					node = getGrandParent(node);
-				}
-
-				//  Rotate (_insert) :
-				void	_rotate(node_pointer &node, node_pointer &parent) {
-					if (parent == getGrandParent(node)->left)
-						_rotateLeft(parent);
-					else if (parent == getGrandParent(node)->right)
-						_rotateRight(parent);
-					node = parent;
-					parent = getParent(node);
-				}
-
-				//  Rotate left (_rotate) :
+				//  Rotate left :
 				void	_rotateLeft(node_pointer node) {
 					node_pointer	right = node->right;
 
@@ -451,7 +592,7 @@ namespace ft
 					}
 				}
 
-				//  Rotate right (_rotate) :
+				//  Rotate right :
 				void	_rotateRight(node_pointer node) {
 					node_pointer	left = node->left;
 
@@ -470,8 +611,26 @@ namespace ft
 					}
 				}
 
+				//  Recolor (_insert) :
+				void	_insertRecolor(node_pointer &node) {
+					setColor(getParent(node), BLACK);
+					setColor(getGrandParent(node), RED);
+					setColor(getUncle(node), BLACK);
+					node = getGrandParent(node);
+				}
+
+				//  Rotate (_insert) :
+				void	_insertRotate(node_pointer &node, node_pointer &parent) {
+					if (parent == getGrandParent(node)->left)
+						_rotateLeft(parent);
+					else if (parent == getGrandParent(node)->right)
+						_rotateRight(parent);
+					node = parent;
+					parent = getParent(node);
+				}
+
 				//  Swap (_insert) :
-				void	_swap(node_pointer &node, node_pointer parent, node_pointer grandparent) {
+				void	_insertSwap(node_pointer &node, node_pointer parent, node_pointer grandparent) {
 					if (parent == grandparent->left)
 						_rotateRight(grandparent);
 					else if (parent == grandparent->right)
@@ -479,6 +638,89 @@ namespace ft
 					std::swap(parent->color, grandparent->color);
 					node = parent;
 				}
+
+				//  Erase root (_erase) :
+				void	_eraseRoot(node_pointer root) {
+					if (root->right)
+						setRoot(root->right);
+					else
+						setRoot(root->left);
+					this->_node_alloc.destroy(root);
+					this->_node_alloc.deallocate(root, 1);
+					setColor(this->getRoot(), BLACK);
+				}
+
+				//  Erase red (_erase) :
+				void	_eraseRed(node_pointer &node) {
+					node_pointer	tmp;
+
+					if (node->left)
+						tmp = node->left;
+					else
+						tmp = node->right;
+					if (node == node->parent->left)
+						node->parent->left = tmp;
+					else
+						node->parent->right = tmp;
+					if (tmp)
+						tmp->parent = node->parent;
+					setColor(tmp, BLACK);
+					this->_node_alloc.destroy(node);
+					this->_node_alloc.deallocate(node, 1);
+				}
+
+				//  Erase rotate 1 (_erase) :
+				void	_eraseRotate1(node_pointer &ptr, node_pointer &parent) {
+					if (ptr == parent->right)
+						_rotateLeft(parent);
+					if (ptr == parent->left)
+						_rotateRight(parent);
+					setColor(ptr, BLACK);
+					setColor(parent, RED);
+				}
+
+				//  Erase rotate 2 (_erase) :
+				void	_eraseRotate2(node_pointer &ptr, node_pointer &parent) {
+					if (ptr == parent->right) {
+						_rotateRight(ptr);
+						setColor(ptr->left, BLACK);
+						setColor(ptr, RED);
+						ptr = parent->right;
+					}
+					if (ptr == parent->left) {
+						_rotateLeft(ptr);
+						setColor(ptr->right, BLACK);
+						setColor(ptr, RED);
+						ptr = parent->left;
+					}
+				}
+
+				//  Erase rotate 3 (_erase) :
+				void	_eraseRotate3(node_pointer &ptr, node_pointer &parent) {
+					if (ptr == parent->right) {
+						_rotateLeft(parent);
+						setColor(ptr, getColor(parent));
+						setColor(parent, BLACK);
+						setColor(ptr->right, BLACK);
+					}
+					if (ptr == parent->left) {
+						_rotateRight(parent);
+						setColor(ptr, getColor(parent));
+						setColor(parent, BLACK);
+						setColor(ptr->left, BLACK);
+					}
+				}
+
+				//  Erase recolor (_erase) :
+				void	_eraseRecolor(node_pointer ptr, node_pointer parent, node_pointer node) {
+					setColor(ptr, RED);
+					if (getColor(parent) == RED)
+						setColor(parent, BLACK);
+					else
+						setColor(parent, UNDEFINED);
+					node = parent;
+				}
+
 			
 
 		};
