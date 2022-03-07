@@ -32,13 +32,18 @@ int		main(void)
 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
 	printSize(mp);
 
+	std::cout << "1" << std::endl;
 	ft_erase(mp, ++mp.begin());
-
+	std::cout << "2" << std::endl;
 	ft_erase(mp, mp.begin());
+	std::cout << "3" << std::endl;
 	ft_erase(mp, --mp.end());
+	std::cout << "4" << std::endl;
 
 	ft_erase(mp, mp.begin(), ++(++(++mp.begin())));
+	std::cout << "5" << std::endl;
 	ft_erase(mp, --(--(--mp.end())), --mp.end());
+	std::cout << "6" << std::endl;
 
 	mp[10] = "Hello";
 	mp[11] = "Hi there";

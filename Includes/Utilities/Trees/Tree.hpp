@@ -447,96 +447,106 @@ namespace ft
 				void			_erase(node_pointer node) {
 					node_pointer ptr = NULL, parent = NULL, tmp = NULL;
 					
-					if (node) {
-						if (node == this->getRoot())
-							return (_eraseRoot(node));
-						if (getColor(node) == RED || getColor(node->left) == RED || getColor(node->right) == RED)
-							return (_eraseRed(node));
-						tmp = node;
-						setColor(tmp, UNDEFINED);
-						while (tmp != this->getRoot() && getColor(tmp) == UNDEFINED) {
-							parent = tmp->parent;
-							if (tmp == parent->left)
-								ptr = parent->right;
-							else
-								ptr = parent->left;
-							if (getColor(ptr) == RED)
-								_eraseRotate1(ptr, parent);
-							else if (getColor(ptr->left) == BLACK && getColor(ptr->right) == BLACK)
-								_eraseRecolor(ptr, parent, tmp);
-							else {
-								if ((tmp == parent->left && getColor(ptr->right) == BLACK)
-									|| (tmp == parent->right && getColor(ptr->left) == BLACK))
-									_eraseRotate2(ptr, parent);
-								_eraseRotate3(ptr, parent);
-								break;
-							}
+					std::cout << "--> 1" << std::endl;
+					if (node == NULL)
+						return ;
+					std::cout << "--> 2" << std::endl;
+					if (node == this->getRoot())
+						return (_eraseRoot(node));
+					std::cout << "--> 3" << std::endl;
+					if (getColor(node) == RED || getColor(node->left) == RED || getColor(node->right) == RED)
+						return (_eraseRed(node));
+					std::cout << "--> 4" << std::endl;
+					tmp = node;
+					std::cout << "--> 5" << std::endl;
+					setColor(tmp, UNDEFINED);
+					std::cout << "--> 6" << std::endl;
+					while (tmp != this->getRoot() && getColor(tmp) == UNDEFINED) {
+						
+						parent = tmp->parent;
+						ptr = (tmp == parent->left) ? parent->right : parent->left;
+						if (getColor(ptr) == RED)
+							_eraseRotate1(ptr, parent);
+						else if (getColor(ptr->left) == BLACK && getColor(ptr->right) == BLACK)
+							_eraseRecolor(ptr, parent, tmp);
+						else {
+							if ((tmp == parent->left && getColor(ptr->right) == BLACK)
+								|| (tmp == parent->right && getColor(ptr->left) == BLACK))
+								_eraseRotate2(ptr, parent);
+							_eraseRotate3(ptr, parent);
+							break;
 						}
-						if (node == node->parent->left)
-							node->parent->left = NULL;
-						else
-							node->parent->right = NULL;
-						this->_node_alloc.destroy(node);
-						this->_node_alloc.deallocate(node, 1);
-						setColor(this->getRoot(), BLACK);
 					}
+					if (node == node->parent->left)
+						node->parent->left = NULL;
+					else
+						node->parent->right = NULL;
+					this->_node_alloc.destroy(node);
+					this->_node_alloc.deallocate(node, 1);
+					setColor(this->getRoot(), BLACK);
 				}
 
 				//  Erase node :
 				node_pointer	_eraseNode(node_pointer node, value_type const &val) {
-					node_pointer	tmp1 = NULL, tmp2 = NULL, tmp3 = NULL;
-
-					if (node && node->left && node->right) {
-						if (_comp(node->value, val))
-							return (_eraseNode(node->right, val));
-						if (_comp(val, node->value))
-							return (_eraseNode(node->left, val));
-						tmp1 = _minimum(node->right);
-						if (node->parent) {
-							if (node->parent->left == node)
-								node->parent->left = tmp1;
-							if (node->parent->right == node)
-								node->parent->right = tmp1;
-						}
-						if (tmp1->parent == node) {
-							tmp1->left = node->left;
-							node->left->parent = tmp1;
-							node->left = NULL;
-							tmp1->parent = node->parent;
-							node->parent = tmp1;
-							node->right = tmp1->right;
-							tmp1->right = node;
-						}
-						else {
-							if (tmp1->parent->left == tmp1)
-								tmp1->parent->left = node;
-							if (tmp1->parent->right == tmp1)
-								tmp1->parent->right = node;
-							tmp2 = tmp1->parent;
-							node->right->parent = tmp1;
-							tmp1->parent = node->parent;
-							node->parent = tmp2;
-							tmp1->left = node->left;
-							node->left->parent = tmp1;
-							node->left = NULL;
-							tmp3 = tmp1->right;
-							tmp1->right = node->right;
-							node->right = tmp3;
-						}
-						std::swap(tmp1->color, node->color);
-						return (_eraseNode(tmp1->right, val));
-
+					if (node == NULL)
+						return (node);
+					if (_comp(node->value, val)) // 삭제하고자하는 위치 찾기
+						return (_eraseNode(node->right, val));
+					if (_comp(val, node->value))
+						return (_eraseNode(node->left, val));
+					if (node->left == NULL || node->right == NULL)
+						return (node);
+					node_pointer tmp = _minimum(node->right);
+					if (tmp->parent == node) //tmp left가 null
+					{
+						if (node->parent && node->parent->left == node)
+							node->parent->left = tmp;
+						if (node->parent && node->parent->right == node)
+							node->parent->right = tmp;
+						tmp->left = node->left;
+						node->left->parent = tmp;
+						node->left = NULL; // 529번째줄로 return하기 위한 조건
+						tmp->parent = node->parent;
+						node->parent = tmp;
+						node->right = tmp->right;
+						tmp->right = node;
+						std::swap(tmp->color, node->color);
 					}
-					return (node);
+					else
+					{
+						if (node->parent && node->parent->left == node)
+							node->parent->left = tmp;
+						if (node->parent && node->parent->right == node)
+							node->parent->right = tmp;
+						if (tmp->parent->left == tmp)
+							tmp->parent->left = node;
+						if (tmp->parent->right == tmp)
+							tmp->parent->right = node;
+						node_pointer tmp2 = tmp->parent;
+						node->right->parent = tmp;
+						tmp->parent = node->parent;
+						node->parent = tmp2;
+						tmp->left = node->left;
+						node->left->parent = tmp;
+						node->left = NULL;
+						node_pointer tmp3 = tmp->right;
+						tmp->right = node->right;
+						node->right = tmp3;
+						std::swap(tmp->color, node->color);
+					}
+					return (_eraseNode(tmp->right, val));
 				}
 
 				//  Erase value:
 				size_type	_eraseValue(value_type const &val) {
 					node_pointer	tmp;
 					
+					std::cout << "====== 1 ======" << std::endl;
 					if (!(tmp = _eraseNode(this->getRoot(), val)))
 						return (0);
+					std::cout << "====== 2 ======" << std::endl;
 					_erase(tmp);
+					std::cout << "====== 3 ======" << std::endl;
 					this->_size -= 1;
 					return (1);
 				}
