@@ -268,21 +268,22 @@ namespace ft
 
 				//  Swap :
 				void		swap(tree &rhs) {
-					tree	*tmp = NULL;
+					value_compare		comp = rhs._comp;
+					allocator_type		alloc = rhs._alloc;
+					node_allocator_type	node_alloc = rhs._node_alloc;
+					node_pointer		node = rhs._node;
+					size_type			size = rhs._size;
 
-					if (this == &rhs) {
-						tmp = &rhs;
-						rhs._comp = this->_comp;
-						rhs._alloc = this->_alloc;
-						rhs._node_alloc = this->_node_alloc;
-						rhs._node = this->_node;
-						rhs._size = this->_size;
-						this->_comp = tmp->_comp;
-						this->_alloc = tmp->_alloc;
-						this->_node_alloc = tmp->_alloc;
-						this->_node = tmp->_node;
-						this->_size = tmp->_size;
-					}
+					rhs._comp = this->_comp;
+					rhs._alloc = this->_alloc;
+					rhs._node_alloc = this->_alloc;
+					rhs._node = this->_node;
+					rhs._size = this->_size;
+					this->_comp = comp;
+					this->_alloc = alloc;
+					this->_node_alloc = node_alloc;
+					this->_node = node;
+					this->_size = size;
 				}
 
 				//  Clear Tree :

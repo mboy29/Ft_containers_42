@@ -24,6 +24,16 @@ Content is:
 ###############################################
 AFTER SWAP
 foo contains:
+size: 4
+max_size: 384307168202282325
+
+Content is:
+- key: w | value: 15
+- key: x | value: 10
+- key: y | value: 5
+- key: z | value: 0
+###############################################
+bar contains:
 size: 7
 max_size: 384307168202282325
 
@@ -36,16 +46,6 @@ Content is:
 - key: f | value: 2
 - key: g | value: 1
 ###############################################
-bar contains:
-size: 4
-max_size: 384307168202282325
-
-Content is:
-- key: w | value: 15
-- key: x | value: 10
-- key: y | value: 5
-- key: z | value: 0
-###############################################
 Iterator validity:
-0
-0
+1
+1
