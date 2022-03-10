@@ -12,26 +12,24 @@
 
 namespace ft
 {
+
+	template<class It>
+		class const_tree_iterator;
 		
 	template <class Iterator>
 		class tree_iterator : public ft::iterator<ft::bidirectional_iterator_tag, Iterator> {
 			
 			//  ----------------------MEMBER TYPES------------------------
 
-		template<class It>
-		class const_tree_iterator;
-
-			protected:
-				typedef iterator<bidirectional_iterator_tag, Iterator>	iterator;
-			
+			private:
+				typedef ft::node<Iterator>				node;
+				typedef ft::node<Iterator>*				node_pointer;
 			public:
-				typedef typename iterator::value_type					value_type;
-				typedef typename iterator::difference_type				difference_type;
-				typedef typename iterator::pointer						pointer;
-				typedef typename iterator::reference					reference;
-				typedef typename iterator::iterator_category			iterator_category;
-				typedef ft::node<Iterator>								node;
-				typedef ft::node<Iterator>*								node_pointer;
+				typedef bidirectional_iterator_tag  iterator_category;
+				typedef Iterator                           value_type;
+				typedef value_type&                 reference;
+				typedef std::ptrdiff_t              difference_type;
+				typedef Iterator*                          pointer;
 			
 			private:
 				node_pointer											_node;
@@ -56,7 +54,7 @@ namespace ft
 				
 				//  -------------------CONVERT TO CONST-------------------
 
-				tree_iterator(const const_tree_iterator<Iterator>& other) : _node(other.base()) {}
+				tree_iterator(const const_tree_iterator<const Iterator>& other) : _node(other.base()) {}
 
 				//  -----------------DEREFERENCE OPERATOR-----------------
 				
@@ -153,20 +151,20 @@ namespace ft
 			
 			//  ----------------------MEMBER TYPES------------------------
 
-			protected:
-					typedef iterator<bidirectional_iterator_tag, Iterator>	iterator;
+			private:
+				typedef ft::node<Iterator>               node;
+				typedef ft::node<Iterator>*              node_pointer;
+
+			public:
+				typedef bidirectional_iterator_tag  iterator_category;
+				typedef const Iterator                           value_type;
+				typedef const value_type&           reference;
+				typedef std::ptrdiff_t              difference_type;
+				typedef const Iterator*                    pointer;
+
 				
-				public:
-					typedef ft::node<Iterator>								node;
-					typedef ft::node<Iterator>*								node_pointer;
-					typedef typename iterator::value_type					value_type;
-					typedef typename iterator::difference_type				difference_type;
-					typedef typename iterator::pointer						pointer;
-					typedef typename iterator::reference					reference;
-					typedef typename iterator::iterator_category			iterator_category;
-				
-				private:
-					node_pointer											_node;
+			private:
+				node_pointer											_node;
 
 			//  ---------------------MEMBER FUNCTIONS---------------------
 			
