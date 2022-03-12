@@ -36,5 +36,6 @@
 # include "./Containers/Vector.hpp"
 # include "./Containers/Stack.hpp"
 # include "./Containers/Map.hpp"
+# include "./Containers/Bonus/Set.hpp"
 
 #endif

@@ -1,6 +1,9 @@
 NAME		=	ft
 
-SRCS		=	./Sources/main.cpp
+SRCS		=	./Sources/Mandatory/main.cpp \
+				./Sources/Mandatory/TestingVector.cpp \
+				./Sources/Mandatory/TestingStack.cpp \
+				./Sources/Mandatory/TestingMap.cpp 
 
 CXX			=	clang++
 RM			=	rm -rf

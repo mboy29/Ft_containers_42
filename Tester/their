@@ -1,107 +1,36 @@
-size: 10
-max_size: 288230376151711743
+size: 6
+max_size: 576460752303423487
 
 Content is:
-- key: 0 | value: AAAAAAAAAA
-- key: 1 | value: BBBBBBBBB
-- key: 2 | value: CCCCCCCC
-- key: 3 | value: DDDDDDD
-- key: 4 | value: EEEEEE
-- key: 5 | value: FFFFF
-- key: 6 | value: GGGG
-- key: 7 | value: HHH
-- key: 8 | value: II
-- key: 9 | value: J
+- value: 12
+- value: 25
+- value: 27
+- value: 42
+- value: 80
+- value: 90
 ###############################################
-	-- [0] --
-size: 9
-max_size: 288230376151711743
-
-Content is:
-- key: 0 | value: AAAAAAAAAA
-- key: 2 | value: CCCCCCCC
-- key: 3 | value: DDDDDDD
-- key: 4 | value: EEEEEE
-- key: 5 | value: FFFFF
-- key: 6 | value: GGGG
-- key: 7 | value: HHH
-- key: 8 | value: II
-- key: 9 | value: J
-###############################################
-	-- [1] --
-size: 8
-max_size: 288230376151711743
-
-Content is:
-- key: 2 | value: CCCCCCCC
-- key: 3 | value: DDDDDDD
-- key: 4 | value: EEEEEE
-- key: 5 | value: FFFFF
-- key: 6 | value: GGGG
-- key: 7 | value: HHH
-- key: 8 | value: II
-- key: 9 | value: J
-###############################################
-	-- [2] --
-size: 7
-max_size: 288230376151711743
-
-Content is:
-- key: 2 | value: CCCCCCCC
-- key: 3 | value: DDDDDDD
-- key: 4 | value: EEEEEE
-- key: 5 | value: FFFFF
-- key: 6 | value: GGGG
-- key: 7 | value: HHH
-- key: 8 | value: II
-###############################################
-	-- [3] --
-size: 4
-max_size: 288230376151711743
-
-Content is:
-- key: 5 | value: FFFFF
-- key: 6 | value: GGGG
-- key: 7 | value: HHH
-- key: 8 | value: II
-###############################################
-	-- [4] --
-size: 2
-max_size: 288230376151711743
-
-Content is:
-- key: 5 | value: FFFFF
-- key: 8 | value: II
-###############################################
-size: 4
-max_size: 288230376151711743
-
-Content is:
-- key: 5 | value: FFFFF
-- key: 8 | value: II
-- key: 10 | value: Hello
-- key: 11 | value: Hi there
-###############################################
-	-- [5] --
-size: 1
-max_size: 288230376151711743
-
-Content is:
-- key: 5 | value: FFFFF
-###############################################
+	-- FIND --
+value: 12
+set::find(3) returned end()
+set::find(35) returned end()
+value: 90
+set::find(100) returned end()
+	-- COUNT --
+set::count(-3)	returned [0]
+set::count(12)	returned [1]
+set::count(3)	returned [0]
+set::count(35)	returned [0]
+set::count(90)	returned [1]
+set::count(100)	returned [0]
 size: 5
-max_size: 288230376151711743
+max_size: 576460752303423487
 
 Content is:
-- key: 5 | value: FFFFF
-- key: 12 | value: ONE
-- key: 13 | value: TWO
-- key: 14 | value: THREE
-- key: 15 | value: FOUR
+- value: 12
+- value: 25
+- value: 42
+- value: 80
+- value: 90
 ###############################################
-	-- [6] --
-size: 0
-max_size: 288230376151711743
-
-Content is:
-###############################################
+const set.find(42)->second: [42]
+const set.count(80): [1]

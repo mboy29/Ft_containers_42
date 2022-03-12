@@ -14,12 +14,12 @@ namespace ft
 {
 	enum color { RED, BLACK, UNDEFINED };
 
-	template<class Pair>
+	template<class Value>
 		struct node {
 
 			//  -----------------------MEMBER TYPES-----------------------
 
-			typedef Pair	value_type;
+			typedef Value	value_type;
 			typedef	color	color_type;
 
 			value_type		value;

@@ -448,20 +448,14 @@ namespace ft
 				void			_erase(node_pointer node) {
 					node_pointer ptr = NULL, parent = NULL, tmp = NULL;
 					
-					std::cout << "--> 1" << std::endl;
 					if (node == NULL)
 						return ;
-					std::cout << "--> 2" << std::endl;
 					if (node == this->getRoot())
 						return (_eraseRoot(node));
-					std::cout << "--> 3" << std::endl;
 					if (getColor(node) == RED || getColor(node->left) == RED || getColor(node->right) == RED)
 						return (_eraseRed(node));
-					std::cout << "--> 4" << std::endl;
 					tmp = node;
-					std::cout << "--> 5" << std::endl;
 					setColor(tmp, UNDEFINED);
-					std::cout << "--> 6" << std::endl;
 					while (tmp != this->getRoot() && getColor(tmp) == UNDEFINED) {
 						
 						parent = tmp->parent;
@@ -542,12 +536,9 @@ namespace ft
 				size_type	_eraseValue(value_type const &val) {
 					node_pointer	tmp;
 					
-					std::cout << "====== 1 ======" << std::endl;
 					if (!(tmp = _eraseNode(this->getRoot(), val)))
 						return (0);
-					std::cout << "====== 2 ======" << std::endl;
 					_erase(tmp);
-					std::cout << "====== 3 ======" << std::endl;
 					this->_size -= 1;
 					return (1);
 				}
