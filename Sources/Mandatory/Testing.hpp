@@ -1,25 +1,27 @@
 #ifndef TESTING_HPP
 # define TESTING_HPP
+# include <stdlib.h>
+# include <iostream>
 
-#if 1 //CREATE A REAL STL EXAMPLE
-	#include <map>
-	#include <stack>
-	#include <vector>
+#if STD
+	# include <map>
+	# include <stack>
+	# include <vector>
 	namespace ft = std;
 #else
-	#include "./../../Includes/Ft.hpp"
-
-using namespace ft;
+	# include "./../../Includes/Ft.hpp"
+#endif
 
 void	testingVector(void);
-void	testingVectorCapacity(vector<char> *test);
-void	testingVectorIterator(vector<char> *test);
-void	testingVetorModifiers(vector<char> *test);
+void	testingVectorCapacity(ft::vector<char> *test);
+void	testingVectorIterator(ft::vector<char> *test);
+void	testingVetorModifiers(ft::vector<char> *test);
 void	testingVectorAllocator(void);
 
 void	testingStack(void);
 void	testingMap(void);
 
-void	testingMapIterator(map<int, std::string> *test);
-void	testingMapCapacity(map<int, std::string> *test);
+void	testingMapIterator(ft::map<int, std::string> *test);
+void	testingMapCapacity(ft::map<int, std::string> *test);
+
 #endif

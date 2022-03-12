@@ -1,19 +1,18 @@
 #include "./Testing.hpp"
 
 
-void	printVector(vector<char> *test) {
-	for (vector<char>::iterator it = test->begin(); it != test->end(); it += 1)
+void	printVector(ft::vector<char> *test) {
+	for (ft::vector<char>::iterator it = test->begin(); it != test->end(); it += 1)
 		std::cout << *it << " ";
 }
 
-void	printCapacity(std::string mess, vector<char> *test) {
-	std::cout << mess << std::endl;
+void	printCapacity(std::string mess, ft::vector<char> *test) {
 	std::cout << "-> Vector size " << mess << " : " << test->size() << std::endl;
 	std::cout << "-> Vector max_size " << mess << " : " << test->max_size() << std::endl;
 	std::cout << "-> Vector capacity " << mess << " : " << test->capacity() << std::endl;
 }
 
-void	testingVectorCapacity(vector<char> *test) {
+void	testingVectorCapacity(ft::vector<char> *test) {
 	std::cout << "-> Vector size : " << test->size() << std::endl;
 	std::cout << "-> Vector max_size : " << test->max_size() << std::endl;
 	std::cout << "-> Vector capacity : " << test->capacity() << std::endl;
@@ -38,11 +37,11 @@ void	testingVectorCapacity(vector<char> *test) {
 	}
 }
 
-void	testingVectorIterator(vector<char> *test) {
-	vector<char>::iterator	start = test->begin();
-	vector<char>::iterator	end = test->end();
-	vector<char>::reverse_iterator rstart(test->rbegin());
-	vector<char>::reverse_iterator rend(test->rend());
+void	testingVectorIterator(ft::vector<char> *test) {
+	ft::vector<char>::iterator	start = test->begin();
+	ft::vector<char>::iterator	end = test->end();
+	ft::vector<char>::reverse_iterator rstart(test->rbegin());
+	ft::vector<char>::reverse_iterator rend(test->rend());
 
 	std::cout << "-> First element iterator : " << *start << std::endl;
 	std::cout << "-> Last element iterator - 1 : " << *end << std::endl;
@@ -65,7 +64,7 @@ void	testingVectorIterator(vector<char> *test) {
 	std::cout << "-> Back element : " << test->back() << std::endl;
 }
 
-void	testingVetorModifiers(vector<char> *test) {
+void	testingVetorModifiers(ft::vector<char> *test) {
 	test->assign(10, 'c');
 	printCapacity("after assign", test);
 	std::cout << "-> Vector elements after assign : " << std::endl << "   ";
@@ -79,7 +78,8 @@ void	testingVetorModifiers(vector<char> *test) {
 	printCapacity("after pop_back", test);
 	std::cout << "-> Vector elements after pop_back : " << std::endl << "   ";
 	printVector(test);
-	vector<char>::iterator it1 = test->begin();
+	
+	ft::vector<char>::iterator it1 = test->begin();
 	test->insert(it1, 'd');
 	std::cout << std::endl << "-> Vector elements after insert 'd' at beginning : " << std::endl << "   ";
 	printVector(test);
@@ -87,7 +87,8 @@ void	testingVetorModifiers(vector<char> *test) {
 	it1 = test->insert(it1 + 10 , 'e');
 	std::cout << std::endl << "-> Vector elements after insert 'e' at position 10 : " << std::endl << "   ";
 	printVector(test);
-	vector<char> it2 (5, 'f');
+	
+	ft::vector<char> it2 (5, 'f');
   	test->insert (it1 ,it2.begin(),it2.end());
 	std::cout << std::endl << "-> Vector elements after insert 5 types 'f' at end : " << std::endl << "   ";
 	printVector(test);
@@ -103,7 +104,7 @@ void	testingVetorModifiers(vector<char> *test) {
 }
 
 void	testingVectorAllocator(void) {
-	vector<int> test;
+	ft::vector<int> test;
 	int	*new_test = NULL;
 
 	new_test = test.get_allocator().allocate(5);
@@ -119,10 +120,10 @@ void	testingVectorAllocator(void) {
 }
 
 void	testingVector(void) {
-	vector<char>	test1;
-	vector<char> 	test2(4, 'a');
-	vector<char>	test3 = test2;
-	vector<char>	test4(test3.begin(), test3.end());
+	ft::vector<char>	test1;
+	ft::vector<char> 	test2(4, 'a');
+	ft::vector<char>	test3 = test2;
+	ft::vector<char>	test4(test3.begin(), test3.end());
 
 	std::cout << "------------- [ CAPACITY ] --------------" << std::endl;
 	testingVectorCapacity(&test4);

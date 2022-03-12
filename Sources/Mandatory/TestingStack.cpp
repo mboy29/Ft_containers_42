@@ -1,13 +1,11 @@
 #include "./Testing.hpp"
 
-using namespace ft;
-
 void	testingStack(void) {
-	vector<std::string>		test1(3, "VECTOR");
-	stack<std::string>		test2(test1);
+	ft::vector<std::string>									test1(3, "VECTOR");
+	ft::stack<std::string, ft::vector<std::string> >		test2(test1);
 
 	std::cout << "-> Testing stack on following vector<std::string> :" << std::endl << "   ";
-	for (vector<std::string>::iterator it = test1.begin(); it != test1.end(); it += 1)
+	for (ft::vector<std::string>::iterator it = test1.begin(); it != test1.end(); it += 1)
 		std::cout << *it << " ";
 	if (test2.empty())
 		std::cout << std::endl << "-> Stack aka vector is empty" << std::endl;
