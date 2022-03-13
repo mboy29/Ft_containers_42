@@ -3,6 +3,7 @@ make: Entering directory `/Users/boymel29/Desktop/42/Ft_containers/Projet'
 clang++ -Wall -Werror -Wextra   -c -o Sources/Mandatory/main.o Sources/Mandatory/main.cpp
 clang++ -Wall -Werror -Wextra   -c -o Sources/Mandatory/TestingVector.o Sources/Mandatory/TestingVector.cpp
 clang++ -Wall -Werror -Wextra   -c -o Sources/Mandatory/TestingStack.o Sources/Mandatory/TestingStack.cpp
+ 
 clang++ -Wall -Werror -Wextra   -c -o Sources/Mandatory/TestingMap.o Sources/Mandatory/TestingMap.cpp
 echo "\x1b[37m\x1b[1m--> Compiling ...\033[0m"
 clang++ -Wall -Werror -Wextra -o ft ./Sources/Mandatory/main.o ./Sources/Mandatory/TestingVector.o ./Sources/Mandatory/TestingStack.o ./Sources/Mandatory/TestingMap.o

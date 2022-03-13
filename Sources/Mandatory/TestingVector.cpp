@@ -69,12 +69,13 @@ void	testingVetorModifiers(ft::vector<char> *test) {
 	printCapacity("after assign", test);
 	std::cout << "-> Vector elements after assign : " << std::endl << "   ";
 	printVector(test);
+	std::cout << std::endl;
 	test->push_back('d');
 	printCapacity("after push_back", test);
 	std::cout << "-> Vector elements after push_back : " << std::endl << "   ";
 	printVector(test);
-	test->pop_back();
 	std::cout << std::endl;
+	test->pop_back();
 	printCapacity("after pop_back", test);
 	std::cout << "-> Vector elements after pop_back : " << std::endl << "   ";
 	printVector(test);

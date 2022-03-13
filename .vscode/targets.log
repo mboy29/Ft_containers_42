@@ -7,8 +7,10 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
  
+make: *** No rule to make target `Sources/Mandatory/main.o', needed by `ft'.  Stop.
+ 
 
-# Make data base, printed on Fri Mar 11 12:19:56 2022
+# Make data base, printed on Sat Mar 12 17:10:32 2022
 
 # Variables
 
@@ -43,7 +45,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/fl/xph2kxbs7qqcj4d204sq050r0000gn/T/vscode-ipc-ec809e92-bb07-4738-b378-1876840c2527.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/fl/xph2kxbs7qqcj4d204sq050r0000gn/T/vscode-ipc-9f937ad8-142d-4461-bdd9-7836dd7db334.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -165,10 +167,10 @@ VSCODE_PID = 572
 
 # Directories
 
-# . (device 16777230, inode 43149696): 12 files, no impossibilities.
-# Sources/Mandatory (device 16777230, inode 43210183): 11 files, 4 impossibilities.
+# . (device 16777230, inode 43280560): 13 files, no impossibilities.
+# Sources/Mandatory (device 16777230, inode 43280665): 7 files, 1 impossibilities.
 
-# 23 files, 4 impossibilities in 2 directories.
+# 20 files, 1 impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -186,8 +188,7 @@ all: ft
 #  Command-line target.
 #  Implicit rule search has not been done.
 #  File does not exist.
-#  File has been updated.
-#  Successfully updated.
+#  File has not been updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -205,7 +206,7 @@ all: ft
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-03-10 16:43:11
+#  Last modified 2022-03-12 17:10:17
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -213,12 +214,9 @@ Makefile:
 
 # Not a target:
 Sources/Mandatory/TestingVector.o:
-#  Implicit rule search has been done.
-#  Last modified 2022-03-10 19:20:33
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 fclean: clean
 #  Phony target (prerequisite of .PHONY).
@@ -232,9 +230,8 @@ fclean: clean
 # Not a target:
 Sources/Mandatory/main.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-03-10 19:20:33
-#  File has been updated.
-#  Successfully updated.
+#  File does not exist.
+#  File has not been updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -246,12 +243,9 @@ Sources/Mandatory/main.o:
 
 # Not a target:
 Sources/Mandatory/TestingStack.o:
-#  Implicit rule search has been done.
-#  Last modified 2022-03-10 19:20:33
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 re: fclean all
 #  Phony target (prerequisite of .PHONY).
@@ -264,6 +258,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
+ 
 #  commands to execute (from `Makefile', line 26):
 	@echo "$(COLOR)--> Cleaning ...$(RESET)"
 	$(RM) $(OBJS)
@@ -271,9 +266,8 @@ clean:
 
 ft: Sources/Mandatory/main.o Sources/Mandatory/TestingVector.o Sources/Mandatory/TestingStack.o Sources/Mandatory/TestingMap.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-03-10 19:20:34
-#  File has been updated.
-#  Successfully updated.
+#  File does not exist.
+#  File has not been updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 21):
@@ -284,15 +278,12 @@ ft: Sources/Mandatory/main.o Sources/Mandatory/TestingVector.o Sources/Mandatory
 
 # Not a target:
 Sources/Mandatory/TestingMap.o:
-#  Implicit rule search has been done.
-#  Last modified 2022-03-10 19:20:34
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # files hash-table stats:
-# Load=13/1024=1%, Rehash=0, Collisions=0/46=0%
+# Load=13/1024=1%, Rehash=0, Collisions=0/40=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -304,6 +295,6 @@ Sources/Mandatory/TestingMap.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Mar 11 12:19:56 2022
+# Finished Make data base on Sat Mar 12 17:10:32 2022
 
  

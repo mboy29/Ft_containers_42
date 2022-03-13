@@ -2,13 +2,13 @@
 
 int		main(void) {
 	//std::cout << TEST << std::endl;
-	//std::cout << "-------------- [ VECTOR ] ---------------" << std::endl;
+	std::cout << "-------------- [ VECTOR ] ---------------" << std::endl;
 	testingVector();
-	//std::cout << "--------------- [ STACK ] ---------------" << std::endl;
+	std::cout << "--------------- [ STACK ] ---------------" << std::endl;
 	testingStack();
-	//std::cout << "---------------- [ MAP ] ----------------" << std::endl;
+	std::cout << "---------------- [ MAP ] ----------------" << std::endl;
 	testingMap();
-	//std::cout << std::endl << "--------------- [ ELSE ] ----------------" << std::endl;
+	std::cout << std::endl << "--------------- [ ELSE ] ----------------" << std::endl;
 	//system("leaks ft");
 	return (0);
 }
