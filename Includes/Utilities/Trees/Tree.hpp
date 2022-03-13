@@ -262,8 +262,10 @@ namespace ft
 
 				//  Erase/map::erase by range :
 				void 		erase(const_iterator first, const_iterator last) {
-					for (const_iterator it = first; it != last; it++)
-						erase(it);
+					
+					for (const_iterator it = first; it != last; it++) {
+						
+					}
 				}
 
 				//  Swap :
@@ -441,14 +443,15 @@ namespace ft
 				}
 
 			//  --------------------------ERASE--------------------------
-
+// for (const_iterator it = this->begin(); it != this->end(); it++)
+// 						std::cout << it->first << " " << it->second << std::endl;
 			private:
 
 				//  Erase :
 				void			_erase(node_pointer node) {
 					node_pointer ptr = NULL, parent = NULL, tmp = NULL;
 					
-					if (node == NULL)
+					if (node == NULL) 
 						return ;
 					if (node == this->getRoot())
 						return (_eraseRoot(node));
@@ -456,10 +459,14 @@ namespace ft
 						return (_eraseRed(node));
 					tmp = node;
 					setColor(tmp, UNDEFINED);
+					std::cout << "==> 5" << std::endl;
 					while (tmp != this->getRoot() && getColor(tmp) == UNDEFINED) {
-						
 						parent = tmp->parent;
-						ptr = (tmp == parent->left) ? parent->right : parent->left;
+						if (tmp == parent->left || !parent->left)
+							ptr = parent->right;
+						else
+							ptr = parent->left;
+						// ptr = (tmp == parent->left) ? parent->right : parent->left;
 						if (getColor(ptr) == RED)
 							_eraseRotate1(ptr, parent);
 						else if (getColor(ptr->left) == BLACK && getColor(ptr->right) == BLACK)
@@ -472,10 +479,18 @@ namespace ft
 							break;
 						}
 					}
-					if (node == node->parent->left)
-						node->parent->left = NULL;
-					else
+					for (const_iterator it = this->begin(); it != this->end(); it++)
+						std::cout << "----------" << it->first << " " << it->second << std::endl;
+					std::cout << "=> " << node->value.second << std::endl; //->value.first << " " << node->value.second << std::endl;
+					std::cout << "=> " << node->parent->left<< std::endl;
+					std::cout << "=> " << node->parent->right->value.second << std::endl ; //<< " " << node->parent->left->value.second << std::endl;
+					//std::cout << "=> " << node->parent->right->value.first << " " << node->parent->right->value.second << std::endl;
+					if (node == node->parent->right)
 						node->parent->right = NULL;
+					else
+						node->parent->left = NULL;
+					for (const_iterator it = this->begin(); it != this->end(); it++)
+						std::cout << "--------------" << it->first << " " << it->second << std::endl;
 					this->_node_alloc.destroy(node);
 					this->_node_alloc.deallocate(node, 1);
 					setColor(this->getRoot(), BLACK);

@@ -61,7 +61,7 @@ void	testingMapObservers(ft::map<std::string, double> *test) {
 
 void	testingMapOperations(ft::map<int, char> *test) {
 	ft::map<int, char>::iterator		it = test->find(23);
-	ft::map<int, char>::const_iterator	res;
+	ft::pair<ft::map<int, char>::iterator, ft::map<int, char>::iterator>	resEqualRange;
 
 	
 	std::cout << "-> Testing on following map<int, char> :" << std::endl;
@@ -74,35 +74,93 @@ void	testingMapOperations(ft::map<int, char> *test) {
 		(test->count(idx) > 0) ?	std::cout << "   " << idx << " is an element of this map" << std::endl
 			: std::cout << "   " << idx << " is NOT an element of this map" << std::endl;
 	}
-	res = test->lower_bound(10);
-	std::cout << "-> 10th letter of the alphabet is using lower_bound :" << std::endl << "   [ " << res->first << " ] [ " << res->second << " ]" << std::endl;
-	res = test->upper_bound(23);
-	std::cout << "-> 24th letter of the alphabet is using upper_bound :" << std::endl << "   [ " << res->first << " ] [ " << res->second << " ]" << std::endl;
+	resEqualRange = test->equal_range(10);
+	std::cout << "-> 10th letter of the alphabet equal_range" << std::endl;
+	std::cout << "   aka lower_bound : [ " << resEqualRange.first->first << " ] th letter is [ " << resEqualRange.first->second << " ]" << std::endl;
+	std::cout << "-> 10th letter of the alphabet equal_range" << std::endl;
+	std::cout << "   aka upper_bound : [ " << resEqualRange.second->first << " ] th letter is [ " << resEqualRange.second->second << " ]" << std::endl;
 }
 
+# include <list>
+# include <map>
+
 void	testingMap(void) {
-	ft::map<int, std::string>		test1; //  Default constructor
-	ft::map<std::string, double>	test2;
-	ft::map<int, char>				test3;
+	// ft::map<int, std::string>		test1; //  Default constructor
+	// ft::map<std::string, double>	test2;
+	// ft::map<int, char>				test3;
 	
-	test1[1] = "One"; //  Operator[]
-	test1[2] = "Two";
-	test1[3] = "Three";
-	test2["Patient A"] = 1.70;
-	test2["Patient B"] = 1.52;
-	test2["Patient C"] = 1.95;
-	test2["Patient D"] = 2.01;
-	for (int idx = 0; idx < 26; idx += 1)
-		test3[idx] = idx + 65;
-	std::cout << "------------- [ ITERATOR ] --------------" << std::endl;
-	testingMapIterator(&test1);
-	std::cout << "------------- [ CAPACITY ] --------------" << std::endl;
-	testingMapCapacity(&test1);
-	std::cout << "------------- [ MODIFIERS ] -------------" << std::endl;
-	testingMapModifiers(&test1);
-	std::cout << "------------- [ OBSERVERS ] -------------" << std::endl;
-	testingMapObservers(&test2);
-	std::cout << "------------ [ OPERATIONS ] -------------" << std::endl;
-	testingMapOperations(&test3);
-	// testingMapOperations(&test1);
+	// test1[1] = "One"; //  Operator[]
+	// test1[2] = "Two";
+	// test1[3] = "Three";
+	// test2["Patient A"] = 1.70;
+	// test2["Patient B"] = 1.52;
+	// test2["Patient C"] = 1.95;
+	// test2["Patient D"] = 2.01;
+	// for (int idx = 0; idx < 26; idx += 1)
+	// 	test3[idx + 1] = idx + 65;
+	// std::cout << "------------- [ ITERATOR ] --------------" << std::endl;
+	// testingMapIterator(&test1);
+	// std::cout << "------------- [ CAPACITY ] --------------" << std::endl;
+	// testingMapCapacity(&test1);
+	// std::cout << "------------- [ MODIFIERS ] -------------" << std::endl;
+	// testingMapModifiers(&test1);
+	// std::cout << "------------- [ OBSERVERS ] -------------" << std::endl;
+	// testingMapObservers(&test2);
+	// std::cout << "------------ [ OPERATIONS ] -------------" << std::endl;
+	// testingMapOperations(&test3);
+
+	std::cout << "--------------- [ OTHER ] ---------------" << std::endl;
+
+	static int	idxStd = 0;
+	std::list<std::pair<const int, std::string> >	lstStd;
+	for (unsigned int idx = 0; idx < 10; ++idx) {
+		lstStd.push_back(std::pair<const int, std::string>(idx, std::string((10 - idx), idx + 65)));
+		std::cout << idx << " " << std::string((10 - idx), idx + 65) << std::endl;
+	}
+	std::map<int, std::string>	testStd(lstStd.begin(), lstStd.end());
+	idxStd += 1;
+	testStd.erase(++testStd.begin());
+	for(std::map<int, std::string>::iterator it = testStd.begin(); it != testStd.end(); it++)
+		std::cout << it->first << " " << it->second << std::endl;
+	testStd.erase(testStd.begin());
+	for(std::map<int, std::string>::iterator it = testStd.begin(); it != testStd.end(); it++)
+		std::cout << it->first << " " << it->second << std::endl;
+	testStd.erase(--testStd.end());
+	for(std::map<int, std::string>::iterator it = testStd.begin(); it != testStd.end(); it++)
+		std::cout << it->first << " " << it->second << std::endl;
+	testStd.erase(testStd.begin(), ++(++(++testStd.begin())));
+	for(std::map<int, std::string>::iterator it = testStd.begin(); it != testStd.end(); it++)
+		std::cout << it->first << " " << it->second << std::endl;
+	testStd.erase(--(--(--testStd.end())), --testStd.end());
+	for(std::map<int, std::string>::iterator it = testStd.begin(); it != testStd.end(); it++)
+		std::cout << it->first << " " << it->second << std::endl;
+	
+	
+	std::cout << "--------------- [ OTHER ] ---------------" << std::endl;
+
+	static int	idxFt = 0;
+	std::list<ft::pair<const int, std::string> >	lstFt;
+	for (unsigned int idx = 0; idx < 10; ++idx) {
+		lstFt.push_back(ft::pair<const int, std::string>(idx, std::string((10 - idx), idx + 65)));
+		std::cout << idx << " " << std::string((10 - idx), idx + 65) << std::endl;
+	}
+	ft::map<int, std::string>	testFt(lstFt.begin(), lstFt.end());
+	idxFt += 1;
+	testFt.erase(++testFt.begin());
+	for(ft::map<int, std::string>::iterator it = testFt.begin(); it != testFt.end(); it++)
+		std::cout << it->first << " " << it->second << std::endl;
+	testFt.erase(testFt.begin());
+	for(ft::map<int, std::string>::iterator it = testFt.begin(); it != testFt.end(); it++)
+		std::cout << it->first << " " << it->second << std::endl;
+	testFt.erase(--testFt.end());
+	for(ft::map<int, std::string>::iterator it = testFt.begin(); it != testFt.end(); it++)
+		std::cout << it->first << " " << it->second << std::endl;
+	testFt.erase(testFt.begin(), ++(++(++testFt.begin())));
+	for(ft::map<int, std::string>::iterator it = testFt.begin(); it != testFt.end(); it++)
+		std::cout << it->first << " " << it->second << std::endl;
+	testFt.erase(--(--(--testFt.end())), --testFt.end());
+	for(ft::map<int, std::string>::iterator it = testFt.begin(); it != testFt.end(); it++)
+		std::cout << it->first << " " << it->second << std::endl;
+
+
 }

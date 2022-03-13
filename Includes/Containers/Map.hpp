@@ -187,6 +187,10 @@ namespace ft
 				pair<iterator,iterator>	equal_range (const key_type& k) { return (ft::make_pair(this->lower_bound(k), this->upper_bound(k))); }
 				pair<const_iterator,const_iterator> equal_range(const key_type& k) const { return (ft::make_pair(this->lower_bound(k), this->upper_bound(k))); }
 				
+				//  ----------------------ALLOCATOR-----------------------
+
+				//  Get allocator :
+				allocator_type	get_allocator(void) const { return (allocator_type()); }
 				//  --------------FRIEND RATIONAL OPERATORS---------------
 				
 				//  Operator== :
