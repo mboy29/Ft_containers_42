@@ -1,0 +1,4 @@
+1c1
+< OK
+---
+> libc++abi: terminating with uncaught exception of type char const*

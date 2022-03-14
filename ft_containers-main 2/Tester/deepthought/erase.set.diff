@@ -1,0 +1,104 @@
+2c2
+< max_size: 329406144173384850
+---
+> max_size: 288230376151711743
+18c18
+< max_size: 329406144173384850
+---
+> max_size: 288230376151711743
+33c33
+< max_size: 329406144173384850
+---
+> max_size: 288230376151711743
+47c47
+< max_size: 329406144173384850
+---
+> max_size: 288230376151711743
+59,60c59,60
+< size: 4
+< max_size: 329406144173384850
+---
+> size: 7
+> max_size: 288230376151711743
+62a63,65
+> - value: CCCCCCCC
+> - value: DDDDDDD
+> - value: EEEEEE
+69,70c72,73
+< size: 2
+< max_size: 329406144173384850
+---
+> size: 7
+> max_size: 288230376151711743
+72a76,78
+> - value: CCCCCCCC
+> - value: DDDDDDD
+> - value: EEEEEE
+73a80,81
+> - value: GGGG
+> - value: HHH
+76,77c84,85
+< size: 4
+< max_size: 329406144173384850
+---
+> size: 9
+> max_size: 288230376151711743
+79a88,90
+> - value: CCCCCCCC
+> - value: DDDDDDD
+> - value: EEEEEE
+80a92,93
+> - value: GGGG
+> - value: HHH
+86,87c99,100
+< size: 1
+< max_size: 329406144173384850
+---
+> size: 9
+> max_size: 288230376151711743
+89a103,105
+> - value: CCCCCCCC
+> - value: DDDDDDD
+> - value: EEEEEE
+90a107,111
+> - value: GGGG
+> - value: HHH
+> - value: Hello
+> - value: Hi there
+> - value: II
+92,93c113,114
+< size: 5
+< max_size: 329406144173384850
+---
+> size: 13
+> max_size: 288230376151711743
+95a117,119
+> - value: CCCCCCCC
+> - value: DDDDDDD
+> - value: EEEEEE
+97a122,126
+> - value: GGGG
+> - value: HHH
+> - value: Hello
+> - value: Hi there
+> - value: II
+103,104c132,133
+< size: 0
+< max_size: 329406144173384850
+---
+> size: 13
+> max_size: 288230376151711743
+106a136,148
+> - value: CCCCCCCC
+> - value: DDDDDDD
+> - value: EEEEEE
+> - value: FFFFF
+> - value: FOUR
+> - value: GGGG
+> - value: HHH
+> - value: Hello
+> - value: Hi there
+> - value: II
+> - value: ONE
+> - value: THREE
+> - value: TWO

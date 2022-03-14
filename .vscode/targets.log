@@ -7,10 +7,10 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
  
-make: *** No rule to make target `Sources/Mandatory/main.o', needed by `ft'.  Stop.
+make: *** No rule to make target `Sources/Mandatory/TestingMap.o', needed by `ft'.  Stop.
  
 
-# Make data base, printed on Sat Mar 12 17:10:32 2022
+# Make data base, printed on Mon Mar 14 11:24:45 2022
 
 # Variables
 
@@ -45,13 +45,15 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/fl/xph2kxbs7qqcj4d204sq050r0000gn/T/vscode-ipc-9f937ad8-142d-4461-bdd9-7836dd7db334.sock
+INFOPATH = /opt/homebrew/share/info:
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/fl/xph2kxbs7qqcj4d204sq050r0000gn/T/vscode-ipc-73ebdee1-e52c-4d62-8580-2e4d83822e70.sock
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /usr/bin:/bin:/usr/sbin:/sbin
+PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
 # environment
-LaunchInstanceID = 27CA9A77-34BF-4AB7-A3C7-A138023B574F
+LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -71,19 +73,25 @@ OBJS = $(SRCS:.cpp=.o)
 # environment
 PWD = /Users/boymel29/Desktop/42/Ft_containers/Projet
 # environment
+HOMEBREW_CELLAR = /opt/homebrew/Cellar
+# environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
-VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+MANPATH = /opt/homebrew/share/man::
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /Users/boymel29
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/boymel29/Library/Application Support/Code/CachedData/f80445acd5a3dadef24aa209168452a3d97cc326
+VSCODE_CODE_CACHE_PATH = /Users/boymel29/Library/Application Support/Code/CachedData/8908a9ca0f221f36507231afb39d2d8d1e182702
 # environment
 LOGNAME = boymel29
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+ZSH = /Users/boymel29/.oh-my-zsh
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -106,6 +114,8 @@ USER = boymel29
 .DEFAULT_GOAL := all
 # makefile (from `Makefile', line 1)
 NAME = ft
+# environment
+LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
@@ -117,7 +127,7 @@ TMPDIR = /var/folders/fl/xph2kxbs7qqcj4d204sq050r0000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/boymel29/Library/Application Support/Code/1.64.2-main.sock
+VSCODE_IPC_HOOK = /Users/boymel29/Library/Application Support/Code/1.65.1-main.sock
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -125,11 +135,15 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.42081472.42081478
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.43391656.43391662
+# environment
+HOMEBREW_PREFIX = /opt/homebrew
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
+# environment
+HOMEBREW_REPOSITORY = /opt/homebrew
 # environment
 __CF_USER_TEXT_ENCODING = 0x1F5:0:0
 # environment
@@ -141,11 +155,11 @@ MAKEFILES :=
 # makefile (from `Makefile', line 8)
 CXX = clang++
 # environment
+PAGER = less
+# environment
 LC_ALL = C
 # makefile (from `Makefile', line 11)
 RESET = $'\033[0m
-# environment
-SECURITYSESSIONID = 186b7
 # automatic
 ^F = $(notdir $^)
 # default
@@ -157,9 +171,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 572
+VSCODE_PID = 56532
 # variable set hash-table stats:
-# Load=72/1024=7%, Rehash=0, Collisions=5/100=5%
+# Load=79/1024=8%, Rehash=0, Collisions=5/107=5%
 
 # Pattern-specific Variable Values
 
@@ -167,10 +181,10 @@ VSCODE_PID = 572
 
 # Directories
 
-# . (device 16777230, inode 43280560): 13 files, no impossibilities.
-# Sources/Mandatory (device 16777230, inode 43280665): 7 files, 1 impossibilities.
+# . (device 16777230, inode 43280560): 11 files, no impossibilities.
+# Sources/Mandatory (device 16777230, inode 43280665): 10 files, 4 impossibilities.
 
-# 20 files, 1 impossibilities in 2 directories.
+# 21 files, 4 impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -214,9 +228,12 @@ Makefile:
 
 # Not a target:
 Sources/Mandatory/TestingVector.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-03-14 11:24:29
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 fclean: clean
 #  Phony target (prerequisite of .PHONY).
@@ -230,8 +247,9 @@ fclean: clean
 # Not a target:
 Sources/Mandatory/main.o:
 #  Implicit rule search has been done.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2022-03-14 11:24:29
+#  File has been updated.
+#  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -243,9 +261,12 @@ Sources/Mandatory/main.o:
 
 # Not a target:
 Sources/Mandatory/TestingStack.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-03-14 11:24:29
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 re: fclean all
 #  Phony target (prerequisite of .PHONY).
@@ -258,7 +279,6 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
- 
 #  commands to execute (from `Makefile', line 26):
 	@echo "$(COLOR)--> Cleaning ...$(RESET)"
 	$(RM) $(OBJS)
@@ -278,12 +298,14 @@ ft: Sources/Mandatory/main.o Sources/Mandatory/TestingVector.o Sources/Mandatory
 
 # Not a target:
 Sources/Mandatory/TestingMap.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
+#  Implicit rule search has been done.
+#  File does not exist.
 #  File has not been updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # files hash-table stats:
-# Load=13/1024=1%, Rehash=0, Collisions=0/40=0%
+# Load=13/1024=1%, Rehash=0, Collisions=0/46=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -295,6 +317,6 @@ Sources/Mandatory/TestingMap.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Mar 12 17:10:32 2022
+# Finished Make data base on Mon Mar 14 11:24:45 2022
 
  

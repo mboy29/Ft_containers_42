@@ -43,7 +43,7 @@ namespace ft
 
 				operator random_access_iterator<const Iterator> (void) {
 					return (random_access_iterator<const Iterator> (this->_ptr));
-				};
+				}
 				
 				//  -----------------DEREFERENCE OPERATOR-----------------
 

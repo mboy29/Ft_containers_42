@@ -12,7 +12,7 @@
 
 namespace ft
 {
-	enum color { RED, BLACK, UNDEFINED };
+	enum color {BLACK, RED};
 
 	template<class Value>
 		struct node {
