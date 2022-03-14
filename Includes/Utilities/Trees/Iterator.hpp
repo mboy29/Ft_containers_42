@@ -13,21 +13,21 @@
 namespace ft
 {
     template <class T, class Node, class Tree>
-		class tree_iterator {
+		class tree_iterator : public iterator<bidirectional_iterator_tag, T> {
 
 			//  -----------------------MEMBER TYPES-----------------------
 
 			protected:
-				Node 			*_node;
-				const Tree 		*_tree;
+				Node 													*_node;
+				const Tree 												*_tree;
+				typedef iterator<bidirectional_iterator_tag, T>			iterator;
 		
 			public:
-				typedef iterator_traits< iterator<std::bidirectional_iterator_tag, T> >	iterator_traits;
-				typedef typename iterator_traits::value_type 							value_type;
-				typedef typename iterator_traits::pointer								pointer;
-				typedef typename iterator_traits::reference								reference;
-				typedef typename iterator_traits::difference_type						difference_type;
-				typedef typename iterator_traits::iterator_category						iterator_category;
+				typedef typename iterator::value_type 					value_type;
+				typedef typename iterator::pointer						pointer;
+				typedef typename iterator::reference					reference;
+				typedef typename iterator::difference_type				difference_type;
+				typedef typename iterator::iterator_category			iterator_category;
 			
 			//  ---------------------MEMBER FUNCTIONS---------------------
 
@@ -120,8 +120,7 @@ namespace ft
 					return (tmp);
 				}
 			
-				//  ------------------DECREMENT OPERATOR------------------
-				//  --------------FRIEND COMPARAISON OPERATOR-------------
+				//  ------------------DECREMENT OPERATOR-----------------
 			
 
 				//  Operator-- -> post-incrementation :
@@ -158,193 +157,11 @@ namespace ft
 					return (tmp);
 				}
 
+				//  --------------FRIEND COMPARAISON OPERATOR-------------
 				
-				friend bool operator== (const tree_iterator& lhs, const tree_iterator& rhs) { return lhs.base() == rhs.base(); }
-				friend bool operator!= (const tree_iterator& lhs, const tree_iterator& rhs) { return !operator==(lhs, rhs); }
+				friend bool operator==(const tree_iterator& lhs, const tree_iterator& rhs) { return (lhs.base() == rhs.base()); }
+				friend bool operator!=(const tree_iterator& lhs, const tree_iterator& rhs) { return (!operator==(lhs, rhs)); }
 		};
 };
-
-// namespace ft
-// {
-
-	
-// 	template <typename iterator>
-// 	class map_reverse_iterator
-// 	{
-// 	public:
-// 		iterator _tree;
-
-// 	public:
-// 		map_reverse_iterator() : _tree(nullptr) {}
-// 		template <class T1>
-// 		map_reverse_iterator(const map_reverse_iterator<iterator> &it) : _tree(it.base()) {}
-// 		explicit map_reverse_iterator(iterator node) : _tree(node) {}
-// 		typedef typename iterator::value_type pair;
-
-// 		iterator base() const
-// 		{
-// 			return _tree;
-// 		}
-
-// 		pair &operator*() const
-// 		{
-// 			return (*--base());
-// 		}
-
-// 		pair *operator->()
-// 		{
-// 			return &(operator*());
-// 		}
-
-// 		pair &get_pair()
-// 		{
-// 			return (_tree.get_pair());
-// 		}
-
-// 		map_reverse_iterator &operator++()
-// 		{
-// 			--_tree;
-// 			return (*this);
-// 		}
-
-// 		map_reverse_iterator operator++(int)
-// 		{
-// 			map_reverse_iterator temp = *this;
-// 			_tree--;
-// 			return temp;
-// 		}
-
-// 		map_reverse_iterator &operator--()
-// 		{
-// 			++_tree;
-// 			return (*this);
-// 		}
-
-// 		map_reverse_iterator operator--(int)
-// 		{
-// 			map_reverse_iterator temp = *this;
-// 			_tree++;
-// 			return temp;
-// 		}
-
-// 		bool operator!()
-// 		{
-// 			if (_tree == nullptr)
-// 				return true;
-// 			return false;
-// 		}
-
-// 		bool operator==(map_reverse_iterator const &rhs)
-// 		{
-// 			if (_tree == rhs._tree)
-// 				return true;
-// 			return false;
-// 		}
-
-// 		bool operator!=(map_reverse_iterator const &rhs)
-// 		{
-// 			if (_tree != rhs._tree)
-// 				return true;
-// 			return false;
-// 		}
-
-// 		bool empty() const
-// 		{
-// 			if (_tree)
-// 				return true;
-// 			return false;
-// 		}
-// 	};
-
-// 	template <class pair, typename NodPtr>
-// 	class MapIterator
-// 	{
-// 	public:
-// 		NodPtr _tree;
-// 		typedef pair value_type;
-
-// 	public:
-// 		MapIterator() : _tree(nullptr) {}
-// 		template <class T1>
-// 		MapIterator(const MapIterator<T1, NodPtr> &it) : _tree(it.base()) {}
-// 		explicit MapIterator(NodPtr node) : _tree(node) {}
-// 		NodPtr base() const
-// 		{
-// 			return this->_tree;
-// 		}
-
-// 		pair &operator*() const
-// 		{
-// 			return (_tree)->pair;
-// 		}
-
-// 		pair *operator->()
-// 		{
-// 			return &(_tree->pair);
-// 		}
-
-// 		pair &get_pair()
-// 		{
-// 			return (_tree->pair);
-// 		}
-
-// 		MapIterator &operator++()
-// 		{
-// 			_tree = get_next(_tree);
-// 			return (*this);
-// 		}
-
-// 		MapIterator operator++(int)
-// 		{
-// 			MapIterator temp = *this;
-// 			_tree = get_next(_tree);
-
-// 			return temp;
-// 		}
-
-// 		MapIterator &operator--()
-// 		{
-// 			_tree = get_precedent(_tree);
-// 			return (*this);
-// 		}
-
-// 		MapIterator operator--(int)
-// 		{
-// 			MapIterator temp = *this;
-// 			_tree = get_precedent(_tree);
-
-// 			return temp;
-// 		}
-
-// 		bool operator!()
-// 		{
-// 			if (_tree == nullptr)
-// 				return true;
-// 			return false;
-// 		}
-
-// 		bool operator==(MapIterator const &rhs)
-// 		{
-// 			if (_tree == rhs._tree)
-// 				return true;
-// 			return false;
-// 		}
-
-// 		bool operator!=(MapIterator const &rhs)
-// 		{
-// 			if (_tree != rhs._tree)
-// 				return true;
-// 			return false;
-// 		}
-
-// 		bool empty() const
-// 		{
-// 			if (_tree)
-// 				return true;
-// 			return false;
-// 		}
-// 	};
-
-// };
 
 #endif

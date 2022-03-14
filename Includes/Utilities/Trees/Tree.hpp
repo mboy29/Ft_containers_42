@@ -20,56 +20,6 @@
 //  ----------------------------------------------------------------------
 
 namespace ft {
-
-	template < class value_type, class Alloc>
-	struct RedBlackNode
-	{
-		Alloc	_alloc;
-		value_type *data;
-		RedBlackNode *parent;    
-		RedBlackNode *right;    
-		RedBlackNode *left;
-		bool color;
-
-		RedBlackNode(value_type val)
-		{
-			this->data = _alloc.allocate(1);
-			_alloc.construct(this->data, value_type(val.first,val.second));
-			left = right = parent = NULL;
-			this->color = RED;
-		}
-		
-		RedBlackNode	&operator=(RedBlackNode const& src)
-		{
-			this->data = _alloc.allocate(1);
-			_alloc.construct(this->data, src.data);
-			this->left = src.left;
-			this->right = src.right;
-			this->parent = src.parent;
-			this->color = src.color;
-			return *this;
-		}
-
-		RedBlackNode(const RedBlackNode& src)
-        {
-            this->data = _alloc.allocate(1);
-            _alloc.construct(this->data, src.data);
-            this->parent = src.parent;
-            this->right = src.right;
-            this->left = src.left;
-            this->color = src.color;
-        }
-		
-		~RedBlackNode()
-		{
-			if (data)
-			{
-				_alloc.destroy(data);
-				_alloc.deallocate(data, 1);
-			}
-		}
-		
-	};
 	template < class T,                                     // map::key_type
            class Compare,                     // map::key_compare
            class Alloc = std::allocator<T>    // map::allocator_type
