@@ -74,10 +74,10 @@ namespace ft
 				//  -----------------DEREFERENCE OPERATOR-----------------
 			
 				//  Operator* :
-				reference operator*(void) const { return (*this->_node->data); }
+				reference operator*(void) const { return (*this->_node->value); }
 				
 				//  Operator-> :
-				pointer   operator->(void) const { return (this->_node->data); }
+				pointer   operator->(void) const { return (this->_node->value); }
 
 			
 				//  ------------------INCREMENT OPERATOR------------------
@@ -88,10 +88,8 @@ namespace ft
 					Node *tmp = NULL;
 					
 					if (!this->_node) {
-						if (!(this->_node = this->_tree->getRoot()))
+						if (!(this->_node = this->_tree->getRoot()) || !(this->_node))
 							return (*this);
-						else if (!this->_node) //  Check for an empty tree
-							throw "mmmmkkk";
 						while (this->_node->left) //  Move to smallest tree value
 							this->_node = this->_node->left;
 					}
@@ -102,11 +100,8 @@ namespace ft
 								this->_node = this->_node->left;
 						}
 						else {
-							tmp = this->_node->parent;
-							while (tmp && this->_node == tmp->right) {
+							for (tmp = this->_node->parent; tmp && this->_node == tmp->right; tmp = tmp->parent)
 								this->_node = tmp;
-								tmp = tmp->parent;
-							}
 							this->_node = tmp;
 						}
 					}
@@ -124,29 +119,27 @@ namespace ft
 			
 
 				//  Operator-- -> post-incrementation :
-				tree_iterator	&operator-- (void) {
+				tree_iterator	&operator--(void) {
 					Node *tmp =  NULL;
 					
 					if (!this->_node) {
 						if (!(_node = _tree->getRoot())) //  Check for an empty tree
-							throw "mmmmkkk"; 
+							return (*this);
 						while (this->_node->right) //  Move to smallest tree value
 							this->_node = this->_node->right;
 					}
-					else
+					else {
 						if (this->_node->left) {
 							this->_node = this->_node->left;
 							while (this->_node->right)
 								this->_node = this->_node->right;
 						}
 						else {
-							tmp = this->_node->parent;
-							while (tmp && this->_node == tmp->left) {
+							for (tmp = this->_node->parent; tmp && this->_node == tmp->left; tmp = tmp->parent)
 								this->_node = tmp;
-								tmp = tmp->parent;
-							}
 							this->_node = tmp;
 						}
+					}
 					return (*this);
 				}
 				
@@ -159,8 +152,8 @@ namespace ft
 
 				//  --------------FRIEND COMPARAISON OPERATOR-------------
 				
-				friend bool operator==(const tree_iterator& lhs, const tree_iterator& rhs) { return (lhs.base() == rhs.base()); }
-				friend bool operator!=(const tree_iterator& lhs, const tree_iterator& rhs) { return (!operator==(lhs, rhs)); }
+				friend bool operator==(tree_iterator const& lhs, tree_iterator const& rhs) { return (lhs.base() == rhs.base()); }
+				friend bool operator!=(tree_iterator const& lhs, tree_iterator const& rhs) { return (!operator == (lhs, rhs)); }
 		};
 };
 

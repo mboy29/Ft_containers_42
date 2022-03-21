@@ -35,8 +35,8 @@ namespace ft  {
 			typedef ft::pair<const key_type,mapped_type> value_type;
 			typedef Compare		key_compare;
 			typedef Alloc		allocator_type;
-			typedef	RedBlackNode<value_type, Alloc>	RedBlack;
-			typedef RedBlackTree<ft::pair< const Key, T>, Compare, Alloc> rbt;
+			typedef	ft::tree_node<value_type, Alloc>	RedBlack;
+			typedef tree<ft::pair< const Key, T>, Compare, Alloc> rbt;
 			typedef typename    allocator_type::reference           reference;
 			typedef typename    allocator_type::const_reference     const_reference;
 			typedef typename    allocator_type::pointer             pointer;
@@ -117,7 +117,7 @@ namespace ft  {
 				if (tmp == NULL)
 				{
 					found = true;
-					this->_rbt.insertion(val);
+					this->_rbt.insert(val);
 					tmp = this->_rbt.search(val);
 					this->_size++;
 				}
@@ -142,13 +142,13 @@ namespace ft  {
 			// erase
 			void erase (iterator position)
 			{
-				this->_rbt.deleteByVal(*position);
+				this->_rbt.erase(*position);
 					this->_size--;
 			}
 			
 			size_type erase (const key_type& k)
 			{
-				if (this->_rbt.deleteByVal(ft::make_pair(k, mapped_type())))
+				if (this->_rbt.erase(ft::make_pair(k, mapped_type())))
 				{
 					this->_size--;
 					return 1;

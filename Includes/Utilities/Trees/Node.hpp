@@ -14,6 +14,8 @@ namespace ft
 {
 	enum color {BLACK, RED};
 
+	//  ----------------------------BASIC NODE----------------------------
+
 	template<class Value>
 		struct node {
 
@@ -71,52 +73,54 @@ namespace ft
 				return (false);
 			}
 		};
+
+	//  -------------------------BLACK & RED NODE-------------------------
 	
 	template < class value_type, class Alloc>
-		struct RedBlackNode {
-			Alloc	_alloc;
-			value_type *data;
-			RedBlackNode *parent;    
-			RedBlackNode *right;    
-			RedBlackNode *left;
-			bool color;
+		struct tree_node {
 
-			RedBlackNode(value_type val)
-			{
-				this->data = _alloc.allocate(1);
-				_alloc.construct(this->data, value_type(val.first,val.second));
-				left = right = parent = NULL;
-				this->color = RED;
-			}
+			//  -----------------------MEMBER TYPES-----------------------
 			
-			RedBlackNode	&operator=(RedBlackNode const& src)
-			{
-				this->data = _alloc.allocate(1);
-				_alloc.construct(this->data, src.data);
-				this->left = src.left;
-				this->right = src.right;
-				this->parent = src.parent;
-				this->color = src.color;
-				return *this;
+			bool 		color;
+			Alloc		alloc;
+			value_type	*value;
+			tree_node	*parent, *right, *left;
+
+			//  -----------------------CONSTRUCTORS-----------------------
+			
+			//  Fill constructor :
+			tree_node(value_type val) : color(RED), parent(NULL), right(NULL), left(NULL) {
+				this->value = alloc.allocate(1);
+				alloc.construct(this->value, value_type(val.first,val.second));
 			}
 
-			RedBlackNode(const RedBlackNode& src)
-			{
-				this->data = _alloc.allocate(1);
-				_alloc.construct(this->data, src.data);
-				this->parent = src.parent;
-				this->right = src.right;
-				this->left = src.left;
-				this->color = src.color;
+			//  Copy constructor :
+			tree_node(tree_node const& rhs) : color(rhs.color), parent(rhs.parent), right(rhs.right), left(rhs.left) {
+				this->value = alloc.allocate(1);
+				alloc.construct(this->value, rhs.value);
 			}
 			
-			~RedBlackNode()
-			{
-				if (data)
-				{
-					_alloc.destroy(data);
-					_alloc.deallocate(data, 1);
+			//  -----------------------DESSTRUCTOR------------------------
+
+			~tree_node(void) {
+				if (this->value) {
+					this->alloc.destroy(this->value);
+					this->alloc.deallocate(this->value, 1);
 				}
+			}
+
+			//  -------------------ASSIGNMENT OPERATOR--------------------
+			
+			tree_node	&operator=(tree_node const& rhs) {
+				if (this != rhs) {
+					this->value = alloc.allocate(1);
+					alloc.construct(this->value, rhs.value);
+					this->left = rhs.left;
+					this->right = rhs.right;
+					this->parent = rhs.parent;
+					this->color = rhs.color;
+				}
+				return (*this);
 			}
 			
 		};
