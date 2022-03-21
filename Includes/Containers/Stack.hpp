@@ -27,14 +27,14 @@ namespace ft
 			
 			//  --------------------MEMBER FUNCTION----------------------
 
-			//  ---------------------CONSTRUCTOR-------------------------
-
 			public:
+
+				//  -------------------CONSTRUCTOR-----------------------
+
+			
 				explicit stack(const container_type& ctnr = container_type()) : _container(ctnr) {}
 			
-			//  -----------------------OTHERS----------------------------
-
-			public:
+				//  ---------------------OTHERS--------------------------
 
 				//  Empty :
 				bool empty(void) const { return (this->_container.empty()); }
@@ -52,14 +52,12 @@ namespace ft
 				//  Pop :
 				void pop(void) { this->_container.pop_back(); }
 			
-			//  -------------RATIONAL OPERATORS FRIENDS------------------
-			//    These rational operators member function are defined
-			//    as "friends" in order for the actual rational
-			//    operators (non-member functions) to access the private
-			//    member type _container.
-			//  ---------------------------------------------------------
-
-			public:
+				//  -------------RATIONAL OPERATORS FRIENDS------------------
+				//    These rational operators member function are defined
+				//    as "friends" in order for the actual rational
+				//    operators (non-member functions) to access the private
+				//    member type _container.
+				//  ---------------------------------------------------------
 
 				template <class Lhs, class Rhs> //  Operator== friend
 					friend bool operator== (const stack<Lhs, Rhs>& lhs, const stack<Lhs, Rhs>& rhs);
@@ -83,37 +81,37 @@ namespace ft
 	
 	//  ---------------NON-MEMBER FUNCTIONS OVERLOADS--------------------
 
-	//  ---------------------RATIONAL OPERATORS--------------------------
+		//  -------------------RATIONAL OPERATORS------------------------
 
-	template <class T, class Container> //  Operator==
-		bool operator== (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
-			return (lhs._container == rhs._container);
-		}
-	
-	template <class T, class Container> //  Operator!=
-		bool operator!= (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
-			return (lhs._container != rhs._container);
-		}
+		template <class T, class Container> //  Operator==
+			bool operator== (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
+				return (lhs._container == rhs._container);
+			}
+		
+		template <class T, class Container> //  Operator!=
+			bool operator!= (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
+				return (lhs._container != rhs._container);
+			}
 
-    template <class T, class Container> //  Operator<
-		bool operator<  (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
-			return (lhs._container < rhs._container);
-		}
+		template <class T, class Container> //  Operator<
+			bool operator<  (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
+				return (lhs._container < rhs._container);
+			}
 
-    template <class T, class Container> //  Operator<=
-		bool operator<= (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
-			return (lhs._container <= rhs._container);
-		}
+		template <class T, class Container> //  Operator<=
+			bool operator<= (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
+				return (lhs._container <= rhs._container);
+			}
 
-    template <class T, class Container> //  Operator>
-		bool operator>  (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
-			return (lhs._container > rhs._container);
-		}
+		template <class T, class Container> //  Operator>
+			bool operator>  (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
+				return (lhs._container > rhs._container);
+			}
 
-    template <class T, class Container> //  Operator>=
-		bool operator>= (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
-			return (lhs._container >= rhs._container);
-		}
+		template <class T, class Container> //  Operator>=
+			bool operator>= (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
+				return (lhs._container >= rhs._container);
+			}
 }
 
 #endif

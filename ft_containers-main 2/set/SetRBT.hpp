@@ -84,7 +84,10 @@ namespace ft {
            class Compare,                     // map::key_compare
            class Alloc = std::allocator<T>    // map::allocator_type
            >
-	class RedBlackTree
+	
+}
+
+class RedBlackTree
 	{
 		public:
 			typedef T value_type;
@@ -670,5 +673,3 @@ namespace ft {
 			}
 			
 	};
-}
-

@@ -39,10 +39,9 @@ namespace ft
 			
 			//  --------------------MEMBER FUNCTION----------------------
 			
-
-			//  ---------------------CONSTRUCTOR-------------------------
-			
 			public:
+
+				//  -------------------CONSTRUCTOR-----------------------
 	
 				//  Default constructor :
 				explicit vector(const allocator_type& alloc = allocator_type())
@@ -78,18 +77,14 @@ namespace ft
 				//  Copy constructor:
 				vector(const vector& x) : _alloc(x._alloc), _ptr(NULL), _start(NULL), _end(NULL), _size(0), _capacity(0) { *this = x; }
 			
-			//  ---------------------DESTRUCTOR--------------------------
-
-			public:
+				//  -------------------DESTRUCTOR------------------------
 	
 				~vector(void) {
 					this->clear();
 					this->_alloc.deallocate(this->_ptr, this->capacity());
 				}
 
-			//  ----------------------OPERATOR=--------------------------
-
-			public :
+				//  -------------------ELEMENT ACCESS--------------------
 
 				//  Operator=
 				vector& operator=(const vector& x) {
@@ -118,9 +113,7 @@ namespace ft
 					return (*this);
 				}
 		
-			//  ----------------------ITERATORS--------------------------
-
-			public:
+				//  --------------------ITERATORS------------------------
 
 				//  Begin :
 				iterator begin() { return (iterator(this->_start)); }
@@ -139,9 +132,7 @@ namespace ft
 				const_reverse_iterator rend() const { return (const_reverse_iterator(this->begin())); }
 
 			
-			//  ----------------------CAPACITY---------------------------
-
-			public :
+				//  --------------------CAPACITY-------------------------
 
 				//  Size :
 				size_type size(void) const { return (this->_size); } 
@@ -217,9 +208,7 @@ namespace ft
 				}
 
 
-			//  --------------------ELEMENT ACCESS-----------------------
-
-			public:
+				//  ------------------ELEMENT ACCESS---------------------
 
 				//  Operator[] :
 				reference operator[](size_type n) { return (*(this->_ptr + n)); }
@@ -248,9 +237,7 @@ namespace ft
 				const_reference back() const { return ((*this)[this->size() - 1]); }
 
 
-			//  -----------------------MODIFIERS-------------------------
-
-			public:
+				//  ---------------------MODIFIERS-----------------------
 
 				//  Assign - Range :
 				template <class InputIterator> //  Range :
@@ -444,65 +431,61 @@ namespace ft
 
 				}
 
-			//  ----------------------ALLOCATOR--------------------------
-
-			public:
+				//  --------------------ALLOCATOR------------------------
 	
 				//  Get_allocator :
-				allocator_type get_allocator(void) const{
-					return (this->_alloc);
-				}
+				allocator_type get_allocator(void) const { return (this->_alloc); }
 
 		};
 
 	//  ---------------NON-MEMBER FUNCTIONS OVERLOADS---------------------
 
-	//  ---------------------RATIONAL OPERATORS---------------------------
+		//  -------------------RATIONAL OPERATORS-------------------------
 
-	template <class T, class Alloc> //  Operator==
-		bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-			if (lhs.size() == rhs.size())
-				return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
-			return (false);
-		}
-	
-	template <class T, class Alloc> //  Operator!=
-		bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-			if (lhs == rhs)
+		template <class T, class Alloc> //  Operator==
+			bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+				if (lhs.size() == rhs.size())
+					return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 				return (false);
-			return (true);	  
-		}
+			}
+		
+		template <class T, class Alloc> //  Operator!=
+			bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+				if (lhs == rhs)
+					return (false);
+				return (true);	  
+			}
+		
+		template <class T, class Alloc> //  Operator<
+			bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+				return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+			}
+		
+		template <class T, class Alloc> //  Operator<=
+			bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+				if (lhs == rhs || lhs < rhs)
+					return (true);
+				return (false);  	
+			}
+		
+		template <class T, class Alloc> //  Operator>
+			bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+				if (!(lhs < rhs) && lhs != rhs)
+					return (true);
+				return (false);
+			}
+		
+		template <class T, class Alloc> //  Operator>=
+			bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+				if (lhs > rhs || lhs == rhs)
+					return (true);
+				return (false);
+			}
 	
-	template <class T, class Alloc> //  Operator<
-		bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
-		}
-	
-	template <class T, class Alloc> //  Operator<=
-		bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-			if (lhs == rhs || lhs < rhs)
-				return (true);
-			return (false);  	
-		}
-	
-	template <class T, class Alloc> //  Operator>
-		bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-			if (!(lhs < rhs) && lhs != rhs)
-				return (true);
-			return (false);
-		}
-	
-	template <class T, class Alloc> //  Operator>=
-		bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-			if (lhs > rhs || lhs == rhs)
-				return (true);
-			return (false);
-		}
-	
-	//  ---------------------------SWAP------------------------------
-	
-	template <class T, class Alloc> //  Swap
-		void swap(vector<T, Alloc> &x, vector<T, Alloc> &y) { x.swap(y); }
+		//  -------------------------SWAP----------------------------
+		
+		template <class T, class Alloc> //  Swap
+			void swap(vector<T, Alloc> &x, vector<T, Alloc> &y) { x.swap(y); }
 }	
 
 #endif
