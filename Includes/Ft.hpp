@@ -18,13 +18,16 @@
 # include "./Utilities/Pair.hpp"
 # include "./Utilities/Compare.hpp"
 # include "./Utilities/Integral.hpp"
-# include "./Utilities/Trees/Node.hpp"
-# include "./Utilities/Trees/Iterator.hpp"
-# include "./Utilities/Trees/Tree.hpp"
+# include "./Utilities/Trees/Map_node.hpp"
+# include "./Utilities/Trees/Map_tree.hpp"
+# include "./Utilities/Trees/Set_node.hpp"
+# include "./Utilities/Trees/Set_tree.hpp"
 # include "./Utilities/Iterators/Iterator.hpp"
 # include "./Utilities/Iterators/Bidirectional_iterator.hpp"
 # include "./Utilities/Iterators/Random_access_iterator.hpp"
 # include "./Utilities/Iterators/Reverse_iterator.hpp"
+# include "./Utilities/Iterators/Map_iterator.hpp"
+# include "./Utilities/Iterators/Set_iterator.hpp"
 
 
 //  ----------------------------CONTAINERS-------------------------------
@@ -36,6 +39,6 @@
 # include "./Containers/Vector.hpp"
 # include "./Containers/Stack.hpp"
 # include "./Containers/Map.hpp"
-// # include "./Bonus/Set.hpp"
+# include "./Containers/Set.hpp"
 
 #endif

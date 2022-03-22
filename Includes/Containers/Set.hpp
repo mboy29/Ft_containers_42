@@ -1,44 +1,36 @@
-#ifndef MAP_HPP
-#define MAP_HPP
+#ifndef SET_HPP
+#define SET_HPP
 #include <memory>						   	//  Allocator
 #include <functional>					   	//  Less -> Determines whether its first argument compares less than the second
 #include "../Utilities/Pair.hpp"		   	//  Pair
-#include "../Utilities/Iterators/Map_iterator.hpp" 	//  Tree Iterator
-#include "../Utilities/Trees/Map_node.hpp"	   	//  Tree Node
-#include "../Utilities/Trees/Map_tree.hpp"	   	//  Tree
+#include "../Utilities/Iterators/Set_iterator.hpp" 	//  Tree Iterator
+#include "../Utilities/Trees/Set_node.hpp"	   	//  Tree Node
+#include "../Utilities/Trees/Set_tree.hpp"	   	//  Tree
 
-//  ----------------------------MAP CONTAINER----------------------------
-//    -> Class Template
-//    Associative containers that store elements in a specific order
-//    formed by a combination of a key (used to sort and uniquely
-//    identify the elements) and a mapped value (stores the content
-//    associated to this key).
-//    Warning :
-//     	- The values are grouped together in member type, aka a pair ;
-//      - The types of key and mapped value may differ ;
-//      - Typically implemented as binary search trees.
+//  ----------------------------SET CONTAINER----------------------------
+
 //  ---------------------------------------------------------------------
 
 namespace ft  {
 	
-	template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
-		class map {
+	template <class T, class Compare = std::less<T>, class Alloc = std::allocator<ft::pair<const T, T> > >
+		class set {
 			//  ---------------------MEMBER TYPES------------------------
 			
 			public:
-				typedef Key																key_type;
+				typedef T																key_type;
 				typedef T																mapped_type;
-				typedef ft::pair<const key_type,mapped_type>							value_type;
-				typedef	ft::map_node<value_type, Alloc>									node_type;
-				typedef ft::map_tree<ft::pair< const Key, T>, Compare, Alloc>			tree_type;
+				typedef ft::pair<const key_type, mapped_type>							value_type;
+				typedef	ft::set_node<value_type, Alloc>									node_type;
+				typedef ft::set_tree<ft::pair< const T, T>, Compare, Alloc>				tree_type;
 				typedef Compare															key_compare;
 				typedef Alloc															allocator_type;
 				typedef typename allocator_type::reference								reference;
 				typedef typename allocator_type::const_reference						const_reference;
 				typedef typename allocator_type::pointer								pointer;
 				typedef typename allocator_type::const_pointer							const_pointer;
-				typedef ft::map_iterator<value_type, node_type, tree_type>				iterator;
-				typedef ft::map_iterator<const value_type, node_type, const tree_type>	const_iterator;
+				typedef ft::set_iterator<value_type, node_type, tree_type>				iterator;
+				typedef ft::set_iterator<const value_type, node_type, const tree_type>	const_iterator;
 				typedef ft::reverse_iterator<iterator>									reverse_iterator;
 				typedef	ft::reverse_iterator<const_iterator>							const_reverse_iterator;
 				typedef	ptrdiff_t														difference_type;
@@ -71,26 +63,26 @@ namespace ft  {
 					//  -------------------CONSTRUCTOR-----------------------
 
 					//  Default constructor :
-					explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _alloc(alloc), _size(0) {}
+					explicit set(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _alloc(alloc), _size(0) {}
 
 					//  Fill constructor :
 					template <class InputIterator>
-						map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _alloc(alloc), _size(0) {
+						set(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _alloc(alloc), _size(0) {
 							while (first != last)
 								this->insert(*first++);
 						}
 
 					//  Copy construcotr
-					map (const map& rhs) { *this = rhs; }
+					set (const set& rhs) { *this = rhs; }
 
 					//  -------------------DESTRUCTOR------------------------
 
-					~map(void) {}
+					~set(void) {}
 
 					//  --------------------OPERATOR=------------------------
 
 					//  Operator= :
-					map&	operator=(const map& rhs) {
+					set&	operator=(const set& rhs) {
 						if (this != &rhs) {
 							this->clear();
 							this->insert(rhs.begin(),rhs.end());
@@ -129,11 +121,6 @@ namespace ft  {
 
 					//  Max size :
 					size_type	max_size(void) const { return (this->_tree.max_size()); }
-
-					//  ------------------ELEMENT ACCESS---------------------
-					
-					//  Operator[] :
-					mapped_type& operator[](const key_type& key) { return (*((this->insert(ft::make_pair(key, mapped_type()))).first)).second; }
 
 					//  ---------------------MODIFIERS-----------------------
 					
@@ -192,7 +179,7 @@ namespace ft  {
 					}
 
 					//  Swap :
-					void		swap(map& x) {
+					void		swap(set& x) {
 						std::swap(this->_size, x._size);
 						std::swap(this->_alloc, x._alloc);
 						std::swap(this->_comp, x._comp);
@@ -248,48 +235,46 @@ namespace ft  {
 			//  ---------------------RATIONAL OPERATORS----------------------
 		
 			//  Operator== :
-			template <class Key, class T, class Compare, class Alloc>
-				bool operator==(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs) {
+			template <class T, class Compare, class Alloc>
+				bool operator==(const set<T, Compare, Alloc>& lhs, const set<T, Compare, Alloc>& rhs) {
 					return ((lhs.size() == rhs.size()) && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 				}
 			
 			//  Operator!= :
-			template <class Key, class T, class Compare, class Alloc>
-				bool operator!=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs) {
+			template <class T, class Compare, class Alloc>
+				bool operator!=(const set<T, Compare, Alloc>& lhs, const set<T, Compare, Alloc>& rhs) {
 					return !(lhs == rhs);
 				}
 			
 			//  Operator< :
-			template <class Key, class T, class Compare, class Alloc>
-				bool operator<(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs) {
+			template <class T, class Compare, class Alloc>
+				bool operator<(const set<T, Compare, Alloc>& lhs, const set<T, Compare, Alloc>& rhs) {
 					return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 				}
 			
 			//  Operator> :
-			template <class Key, class T, class Compare, class Alloc>
-				bool operator>( const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs) {
+			template <class T, class Compare, class Alloc>
+				bool operator>( const set<T, Compare, Alloc>& lhs, const set<T, Compare, Alloc>& rhs) {
 					return (rhs < lhs);
 				}
 			
 			//  Operator<= :
-			template <class Key, class T, class Compare, class Alloc>
-				bool operator<=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs) {
+			template <class T, class Compare, class Alloc>
+				bool operator<=(const set<T, Compare, Alloc>& lhs, const set<T, Compare, Alloc>& rhs) {
 					return !(rhs < lhs);
 				}
 			
 			//  Operator>= :
-			template <class Key, class T, class Compare, class Alloc>
-				bool operator>=(const map<Key,T , Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs) {
+			template <class T, class Compare, class Alloc>
+				bool operator>=(const set<T, Compare, Alloc>& lhs, const set<T, Compare, Alloc>& rhs) {
 					return !(lhs < rhs);
 				}
 
 			//  ----------------------------SWAP-----------------------------
 			
-			template <class Key, class T, class Compare, class Alloc>
-				void swap(map<Key, T, Compare, Alloc>& rhs, map<Key, T, Compare, Alloc>& lhs) { rhs.swap(lhs); }
+			template <class T, class Compare, class Alloc>
+				void swap(set<T, Compare, Alloc>& rhs, set<T, Compare, Alloc>& lhs) { rhs.swap(lhs); }
 
-
-		
 };
 
 #endif
