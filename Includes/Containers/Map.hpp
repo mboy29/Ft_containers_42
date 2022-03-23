@@ -1,11 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Map.hpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mboy <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 13:30:28 by mboy              #+#    #+#             */
+/*   Updated: 2022/03/23 13:30:40 by mboy             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MAP_HPP
 #define MAP_HPP
-#include <memory>						   	//  Allocator
-#include <functional>					   	//  Less -> Determines whether its first argument compares less than the second
-#include "../Utilities/Pair.hpp"		   	//  Pair
-#include "../Utilities/Iterators/Map_iterator.hpp" 	//  Tree Iterator
-#include "../Utilities/Trees/Map_node.hpp"	   	//  Tree Node
-#include "../Utilities/Trees/Map_tree.hpp"	   	//  Tree
+
 
 //  ----------------------------MAP CONTAINER----------------------------
 //    -> Class Template
@@ -19,26 +26,42 @@
 //      - Typically implemented as binary search trees.
 //  ---------------------------------------------------------------------
 
+//  --------------------------EXTERNAL LIBRARIES--------------------------
+
+# include <memory>		//  Allocator
+# include <functional>	//  Less -> Determines whether its first argument compares less than the second
+
+
+//  --------------------------INTERNAL LIBRARIES--------------------------
+
+# include "./Vector.hpp" //  Vector		
+# include "../Utilities/Pair.hpp"  //  Pair
+# include "./../Utilities/Compare.hpp"  //  Lexicographical_compare
+# include "./../Utilities/Algorithm.hpp"  //  Equal
+# include "./../Utilities/Trees/Tree.hpp"  //  Iterator
+# include "./../Utilities/Iterators/Tree_iterator.hpp"  //  Iterator
+
 namespace ft  {
 	
 	template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
 		class map {
+			
 			//  ---------------------MEMBER TYPES------------------------
 			
 			public:
 				typedef Key																key_type;
 				typedef T																mapped_type;
 				typedef ft::pair<const key_type,mapped_type>							value_type;
-				typedef	ft::map_node<value_type, Alloc>									node_type;
-				typedef ft::map_tree<ft::pair< const Key, T>, Compare, Alloc>			tree_type;
+				typedef	ft::node<value_type, Alloc>										node_type;
+				typedef ft::tree<ft::pair< const Key, T>, Compare, Alloc>				tree_type;
 				typedef Compare															key_compare;
 				typedef Alloc															allocator_type;
 				typedef typename allocator_type::reference								reference;
 				typedef typename allocator_type::const_reference						const_reference;
 				typedef typename allocator_type::pointer								pointer;
 				typedef typename allocator_type::const_pointer							const_pointer;
-				typedef ft::map_iterator<value_type, node_type, tree_type>				iterator;
-				typedef ft::map_iterator<const value_type, node_type, const tree_type>	const_iterator;
+				typedef ft::tree_iterator<value_type, node_type, tree_type>				iterator;
+				typedef ft::tree_iterator<const value_type, node_type, const tree_type>	const_iterator;
 				typedef ft::reverse_iterator<iterator>									reverse_iterator;
 				typedef	ft::reverse_iterator<const_iterator>							const_reverse_iterator;
 				typedef	ptrdiff_t														difference_type;
@@ -87,7 +110,7 @@ namespace ft  {
 
 					~map(void) {}
 
-					//  --------------------OPERATOR=------------------------
+					//  -------------------ASSIGN OPERATOR-------------------
 
 					//  Operator= :
 					map&	operator=(const map& rhs) {
@@ -192,11 +215,18 @@ namespace ft  {
 					}
 
 					//  Swap :
-					void		swap(map& x) {
-						std::swap(this->_size, x._size);
-						std::swap(this->_alloc, x._alloc);
-						std::swap(this->_comp, x._comp);
-						this->_tree.swap(x._tree);
+					void		swap(map& rhs) {
+						Compare			tmp_comp = this->_comp;
+						size_type		tmp_size = this->_size;
+						allocator_type	tmp_alloc = this->_alloc;
+						
+						this->_comp = rhs._comp;
+						this->_size = rhs._size;
+						this->_alloc = rhs._alloc;
+						rhs._comp = tmp_comp;
+						rhs._size = tmp_size;
+						rhs._alloc = tmp_alloc;
+						this->_tree.swap(rhs._tree);
 					}
 
 					//  Clear :

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Integral.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mboy <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 13:31:09 by mboy              #+#    #+#             */
+/*   Updated: 2022/03/23 13:31:10 by mboy             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef INTEGRAL_HPP
 # define INTEGRAL_HPP
 
@@ -30,7 +42,6 @@ namespace ft
 	
 	template <class T> //  True_type :
 		struct is_integral<const T> : is_integral<T> {};
-	
 	
 	template <> //  Bool - true :
 		struct is_integral<bool> : public integral_constant<bool, true> {};

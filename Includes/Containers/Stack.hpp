@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Stack.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mboy <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 13:30:44 by mboy              #+#    #+#             */
+/*   Updated: 2022/03/23 13:30:46 by mboy             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STACK_HPP
 # define STACK_HPP
-# include "Vector.hpp" // Default container
 
 //  ---------------------------STACK CONTAINER---------------------------
 //    -> Class Template
@@ -9,6 +20,10 @@
 //    Thus, elements are inserted and extracted only from one end of the
 //    container.
 //  ---------------------------------------------------------------------
+
+//  --------------------------INTERNAL LIBRARIES-------------------------
+
+# include "Vector.hpp"  // Default container
 
 namespace ft
 {
@@ -31,7 +46,6 @@ namespace ft
 
 				//  -------------------CONSTRUCTOR-----------------------
 
-			
 				explicit stack(const container_type& ctnr = container_type()) : _container(ctnr) {}
 			
 				//  ---------------------OTHERS--------------------------

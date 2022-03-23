@@ -1,14 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Vector.hpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mboy <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 13:30:48 by mboy              #+#    #+#             */
+/*   Updated: 2022/03/23 13:30:49 by mboy             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
-# include <memory> //  Allocator
-# include <stdexcept> //  length_error
-# include <cstring> // memmove 
+
 
 //  ---------------------------VECTOR CONTAINER---------------------------
 //    -> Class Template
 //    Vectors are sequence containers representing arrays that can change
 //    in size.
 //  ----------------------------------------------------------------------
+
+//  --------------------------EXTERNAL LIBRARIES--------------------------
+
+# include <memory>  //  Allocator
+# include <stdexcept>  //  Length_error
+# include <cstring>  //  Memmove 
+
+
+//  --------------------------INTERNAL LIBRARIES--------------------------
+
+# include "./../Utilities/Iterators/Iterator.hpp" //  Iterator
+# include "./../Utilities/Iterators/Reverse_iterator.hpp" //  Reverse_iterator
+# include "./../Utilities/Iterators/Random_access_iterator.hpp"  //  Reverse_access_iterator
+# include "./../Utilities/Compare.hpp"  //  Lexicographical_compare
+# include "./../Utilities/Integral.hpp"  //  Is_integral
+# include "./../Utilities/Enable_if.hpp"  //  Enable_if
+# include "./../Utilities/Algorithm.hpp"  //  Equal
 
 namespace ft
 {
@@ -156,7 +183,7 @@ namespace ft
 						this->clear();
 						this->_alloc.deallocate(this->_ptr, this->capacity());
 						this->_size = n;
-						this->_capacity = n;
+						this->_capacity = n + 2;
 						this->_ptr = new_ptr;
 						this->_start = this->_ptr;
 						this->_end = this->_ptr + (this->size() - 1);

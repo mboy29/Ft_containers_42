@@ -1,12 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Reverse_iterator.hpp                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mboy <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 13:31:43 by mboy              #+#    #+#             */
+/*   Updated: 2022/03/23 13:31:53 by mboy             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef REVERSE_ITERATOR_HPP
 # define REVERSE_ITERATOR_HPP
-# include "Iterator.hpp"
 
 //  --------------------------REVERSE ITERATORS---------------------------
 //    -> Class Template
 //    This class reverses the direction in which a bidirectional or
 //    random-access iterator iterates through a range.
 //  ----------------------------------------------------------------------
+
+//  --------------------------INTERNAL LIBRARIES-------------------------
+
+# include "Iterator.hpp"  //  Iterator
 
 namespace ft
 {

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Algorithm.hpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mboy <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 13:30:55 by mboy              #+#    #+#             */
+/*   Updated: 2022/03/23 13:30:56 by mboy             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ALGORITHM_HPP
 # define ALGORITHM_HPP
 
@@ -12,8 +24,8 @@ namespace ft
 {
 	//  ----------------------------EQUALITY---------------------------------
 
-	template <class InputIterator1, class InputIterator2>
-		bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2) {
+	template <class It1, class It2>
+		bool equal(It1 first1, It1 last1, It2 first2) {
 			while (first1 != last1) {
 				if (!(*first1++ == *first2++))
 					return (false);
@@ -29,8 +41,8 @@ namespace ft
 	//    match in the context of this function.
 	//  ----------------------------------------------------------------------
 
-	template <class InputIterator1, class InputIterator2, class BinaryPredicate>
-		bool equal (InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryPredicate pred) {
+	template <class It1, class It2, class BinaryPredicate>
+		bool equal (It1 first1, It1 last1, It2 first2, BinaryPredicate pred) {
 			while (first1 != last1) {
 				if (!pred(*first1++, *first2++))
 					return (false);

@@ -1,13 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Iterator.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mboy <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 13:31:30 by mboy              #+#    #+#             */
+/*   Updated: 2022/03/23 13:32:44 by mboy             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
+
+//  ------------------------------ITERATORS------------------------------
+//    -> Header
+//    Object that, pointing to some element in a range of elements (such
+//    as an array or a container), has the ability to iterate through the
+//    elements of that range using a set of operators (with at least the 
+//    increment (++) and dereference (*) operators).
+//  ---------------------------------------------------------------------
+
+//  --------------------------EXTERNAL LIBRARIES--------------------------
+
 # include <cstddef> // ptrdiff_t -> Signed integer type of the result of subtracting two pointers
 
-//  ---------------------ITERATOR RE-IMPLATATION-------------------------
-//    -> Header
-//    Object that, pointing to some element in a range of elements
-//    (array or container), has the ability to iterate through the
-//    elements of that range using a set of operators.
-//  ---------------------------------------------------------------------
 
 namespace ft
 {

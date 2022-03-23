@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Random_access_iterator.hpp                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mboy <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 13:31:34 by mboy              #+#    #+#             */
+/*   Updated: 2022/03/23 13:31:36 by mboy             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef RANDOM_ACCESS_ITERATOR_HPP
 # define  RANDOM_ACCESS_ITERATOR_HPP
 
 //  -----------------------RANDOM ACCESS ITERATORS------------------------
 //    -> Class Template
-//    This class reverses are iterators that can be used to access
-//    elements at an arbitrary offset position relative to the element
-//    they point to (they offer the same functionality as pointers.
+//    This class are iterators that can be used to access elements at an
+//    arbitrary offset position relative to the element they point to 
+//    (they offer the same functionality as pointers.
 //  ----------------------------------------------------------------------
 
 namespace ft
