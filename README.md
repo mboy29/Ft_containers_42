@@ -9,3 +9,4 @@ Makefile usage:
 - Make: creates two executable, one testing the STL containers and the other testing my re-implementation, aka FT ;
 - Make test: executes both STL and FT tests and compares both ouputs (stored in in. /Output repository) 
 - Make time: executes both STL and FT tests, compares output and performances (time).
+
